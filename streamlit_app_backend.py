@@ -26,24 +26,86 @@ st.set_page_config(
 
 # Custom CSS for better UI
 st.markdown("""
+st.markdown("""
 <style>
-    .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
-        font-size: 1rem;
-        font-weight: 500;
-    }
-    .chat-message {
-        padding: 1rem;
-        border-radius: 0.5rem;
-        margin-bottom: 1rem;
-    }
-    .user-message {
-        background-color: #e3f2fd;
-        border-left: 4px solid #2196f3;
-    }
-    .assistant-message {
-        background-color: #f1f8e9;
-        border-left: 4px solid #4caf50;
-    }
+
+/* Main App */
+.stApp {
+    background-color: #050816;
+    color: #ffffff;
+}
+
+/* Tabs */
+.stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Chat Message Base */
+.chat-message {
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 1rem;
+    color: #111111 !important;
+    font-size: 16px;
+    line-height: 1.6;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+/* User Messages */
+.user-message {
+    background-color: #dbeafe !important;
+    border-left: 5px solid #2196f3;
+    color: #111111 !important;
+}
+
+/* Assistant Messages */
+.assistant-message {
+    background-color: #ecfccb !important;
+    border-left: 5px solid #4caf50;
+    color: #111111 !important;
+}
+
+/* Fix markdown text visibility */
+.user-message * {
+    color: #111111 !important;
+}
+
+.assistant-message * {
+    color: #111111 !important;
+}
+
+/* Timestamp */
+.chat-message small {
+    color: #444444 !important;
+}
+
+/* Sidebar */
+section[data-testid="stSidebar"] {
+    background-color: #1e1e2f;
+}
+
+/* Buttons */
+.stButton button {
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+/* Expander */
+.streamlit-expanderHeader {
+    font-weight: 600;
+}
+
+/* Chat Input */
+.stChatInputContainer {
+    border-top: 1px solid #333;
+}
+
+/* Improve text readability */
+p, li, span {
+    font-size: 15px;
+}
+
 </style>
 """, unsafe_allow_html=True)
 
