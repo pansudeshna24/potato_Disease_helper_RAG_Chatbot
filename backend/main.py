@@ -831,8 +831,6 @@ async def websocket_stream(websocket: WebSocket, chat_id: str):
 
 # ==================== Image Analysis Endpoint ====================
 
-
-
 from fastapi import File, UploadFile, Form
 from PIL import Image as PILImage
 import io
@@ -849,153 +847,277 @@ async def analyze_image(
     Returns disease prediction + confidence + optional RAG explanation.
     Classification runs locally (zero API cost). Only the RAG answer uses LLM.
     """
+
     request_id = str(uuid.uuid4())[:8]
     request_start = time.perf_counter()
 
     try:
+
         if not IMAGE_ANALYSIS_AVAILABLE or image_analyzer is None:
             raise HTTPException(
                 status_code=503,
                 detail="Image analysis not available. Install transformers+torch and run build_reference_index."
             )
 
+        # =========================
         # Read and validate image
+        # =========================
+
         image_bytes = await image.read()
+
         try:
             pil_image = PILImage.open(io.BytesIO(image_bytes)).convert("RGB")
         except Exception:
             raise HTTPException(status_code=400, detail="Invalid image file.")
 
-        log_query_start(api_logger, request_id, f"IMAGE_ANALYSIS: {image.filename}")
+        log_query_start(
+            api_logger,
+            request_id,
+            f"IMAGE_ANALYSIS: {image.filename}"
+        )
 
-        # CLIP analysis (runs locally — $0)
+        # =========================
+        # CLIP ANALYSIS
+        # =========================
+
         analysis_start = time.perf_counter()
+
         analysis = image_analyzer.analyze_image(pil_image)
+
         analysis_elapsed = time.perf_counter() - analysis_start
+
+        prediction = analysis.get("display_name", "Unknown Disease")
+        confidence = analysis.get("confidence", 0.0)
 
         log_timing(api_logger, "CLIP_IMAGE_ANALYSIS", {
             'duration_ms': round(analysis_elapsed * 1000, 2),
-            'prediction': analysis['display_name'],
-            'confidence': analysis['confidence'],
+            'prediction': prediction,
+            'confidence': confidence,
         })
 
-        # Build response
+        # =========================
+        # SAFE MATCHED IMAGES
+        # =========================
+
+        matched_images = []
+
+        for img in analysis.get("matched_ref_images", [])[:5]:
+
+            matched_images.append({
+                "image_path": img.get("image_path", ""),
+                "disease": img.get("display_name", "Unknown"),
+                "similarity_score": round(
+                    img.get("similarity_score", 0.0),
+                    4
+                ),
+            })
+
+        # =========================
+        # BUILD RESPONSE
+        # =========================
+
         response_data = {
-            "prediction": analysis['display_name'],
-            "confidence": analysis['confidence'],
-            "top_candidates": analysis['all_candidates'],
-            "matched_ref_images": [
-                {
-                    "image_path": img['image_path'],
-                    "disease": img['display_name'],
-                    "similarity_score": round(img['similarity_score'], 4),
-                }
-                for img in analysis['matched_ref_images'][:5]
-            ],
-            "rag_query": analysis['rag_query'],
+            "prediction": prediction,
+            "confidence": confidence,
+            "top_candidates": analysis.get("all_candidates", []),
+            "matched_ref_images": matched_images,
+            "rag_query": analysis.get(
+                "rag_query",
+                f"What is {prediction} disease in potato?"
+            ),
             "rag_response": None,
             "source_documents": [],
         }
 
-        # Optionally trigger RAG for detailed explanation (1 LLM call)
-        if trigger_rag and qa_chain is not None:
-            rag_query = analysis['rag_query']
-            if language == "Hindi":
-                rag_query += "\n\nIMPORTANT: Respond in Hindi (\u0939\u093f\u0902\u0926\u0940 \u092e\u0947\u0902 \u0909\u0924\u094d\u0924\u0930 \u0926\u0947\u0902)."
+        # =========================
+        # OPTIONAL RAG
+        # =========================
 
-            # Save user message — include base64 image + CLIP analysis in metadata
+        if trigger_rag and qa_chain is not None:
+
+            rag_query = response_data["rag_query"]
+
+            if language == "Hindi":
+                rag_query += "\n\nIMPORTANT: Respond in Hindi (हिंदी में उत्तर दें)."
+
+            # Save image
             import base64 as _b64
+
             image_b64 = _b64.b64encode(image_bytes).decode('utf-8')
-            user_msg = f"[Image uploaded: {image.filename}]\n{analysis['rag_query']}"
+
+            user_msg = f"[Image uploaded: {image.filename}]\n{rag_query}"
+
             user_meta = {
                 "image_analysis": True,
                 "image_b64": image_b64,
                 "image_filename": image.filename,
             }
-            add_message(chat_id, "user", user_msg, metadata=user_meta)
 
-            # Get chat history
+            add_message(
+                chat_id,
+                "user",
+                user_msg,
+                metadata=user_meta
+            )
+
+            # =========================
+            # CHAT HISTORY
+            # =========================
+
             messages_db = get_messages(chat_id)
+
             chat_history_raw = [
                 (msg[0], msg[1])
                 for msg in messages_db[:-1]
                 if msg[0] in ["user", "assistant"]
             ]
-            reconstructed_history = []
-            for i in range(0, len(chat_history_raw), 2):
-                if i + 1 < len(chat_history_raw):
-                    reconstructed_history.append((chat_history_raw[i][1], chat_history_raw[i+1][1]))
 
-            # Invoke RAG chain
+            reconstructed_history = []
+
+            for i in range(0, len(chat_history_raw), 2):
+
+                if i + 1 < len(chat_history_raw):
+
+                    reconstructed_history.append(
+                        (
+                            chat_history_raw[i][1],
+                            chat_history_raw[i + 1][1]
+                        )
+                    )
+
+            # =========================
+            # RAG INVOCATION
+            # =========================
+
             chain_start = time.perf_counter()
+
             result = qa_chain.invoke({
                 "question": rag_query,
                 "chat_history": reconstructed_history
             })
+
             log_timing(api_logger, "IMAGE_RAG_CHAIN", {
-                'duration_ms': round((time.perf_counter() - chain_start) * 1000, 2)
+                'duration_ms': round(
+                    (time.perf_counter() - chain_start) * 1000,
+                    2
+                )
             })
 
             ai_response = result.get("answer", "")
+
             source_docs = result.get("source_documents", [])
 
-            # Serialize sources
+            # =========================
+            # SERIALIZE SOURCES
+            # =========================
+
             serialized_sources = []
+
             for doc in source_docs:
+
                 try:
-                    raw_meta = doc.metadata if hasattr(doc, 'metadata') else {}
+
+                    raw_meta = (
+                        doc.metadata
+                        if hasattr(doc, 'metadata')
+                        else {}
+                    )
+
                     src = raw_meta.get('source', None)
-                    page_content = doc.page_content if hasattr(doc, 'page_content') else str(doc)
+
+                    page_content = (
+                        doc.page_content
+                        if hasattr(doc, 'page_content')
+                        else str(doc)
+                    )
+
                     safe_meta = {}
+
                     for k, v in (raw_meta or {}).items():
+
                         try:
                             json.dumps(v)
                             safe_meta[str(k)] = v
+
                         except (TypeError, ValueError):
                             safe_meta[str(k)] = str(v)
+
                 except Exception:
+
                     src = None
                     safe_meta = {}
                     page_content = str(doc)
+
                 serialized_sources.append({
                     "source": src,
                     "page_content": page_content,
                     "metadata": safe_meta
                 })
 
+            # =========================
+            # SAVE ASSISTANT MESSAGE
+            # =========================
+
             assistant_meta = {
                 "source_documents": serialized_sources,
                 "image_analysis": True,
-                "prediction": analysis['display_name'],
-                "confidence": analysis['confidence'],
-                "top_candidates": analysis['all_candidates'],
-                "matched_ref_images": [
-                    {
-                        "image_path": img['image_path'],
-                        "disease": img['display_name'],
-                        "similarity_score": round(img['similarity_score'], 4),
-                    }
-                    for img in analysis['matched_ref_images'][:5]
-                ],
+                "prediction": prediction,
+                "confidence": confidence,
+                "top_candidates": analysis.get("all_candidates", []),
+                "matched_ref_images": matched_images,
             }
-            add_message(chat_id, "assistant", ai_response, metadata=assistant_meta)
+
+            add_message(
+                chat_id,
+                "assistant",
+                ai_response,
+                metadata=assistant_meta
+            )
 
             response_data["rag_response"] = ai_response
             response_data["source_documents"] = serialized_sources
 
+        # =========================
+        # SUCCESS
+        # =========================
+
         total_time = time.perf_counter() - request_start
-        log_query_complete(api_logger, request_id, total_time, "SUCCESS")
-        response_data["timings"] = {"total_ms": round(total_time * 1000, 2)}
+
+        log_query_complete(
+            api_logger,
+            request_id,
+            total_time,
+            "SUCCESS"
+        )
+
+        response_data["timings"] = {
+            "total_ms": round(total_time * 1000, 2)
+        }
+
         return response_data
 
     except HTTPException:
         raise
-    except Exception as e:
-        total_time = time.perf_counter() - request_start
-        log_query_complete(api_logger, request_id, total_time, f"FAILED: {type(e).__name__}")
-        api_logger.error(f"Error in analyze_image: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
 
+    except Exception as e:
+
+        total_time = time.perf_counter() - request_start
+
+        log_query_complete(
+            api_logger,
+            request_id,
+            total_time,
+            f"FAILED: {type(e).__name__}"
+        )
+
+        api_logger.error(
+            f"Error in analyze_image: {str(e)}"
+        )
+
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
 
 # ==================== Error Handlers ====================
 
