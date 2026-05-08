@@ -26,7 +26,6 @@ st.set_page_config(
 
 # Custom CSS for better UI
 st.markdown("""
-st.markdown("""
 <style>
 
 /* Main App */
