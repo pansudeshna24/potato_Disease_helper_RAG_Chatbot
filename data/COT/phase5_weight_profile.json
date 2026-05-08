@@ -1,0 +1,31 @@
+{
+  "profile_name": "phase5_tuned_v1",
+  "generated_at_utc": "2026-04-06T15:07:07.091492+00:00",
+  "factor_weights": {
+    "general_appearance": 0.132701,
+    "wilting": 0.196209,
+    "growth_habit": 0.113744,
+    "stems": 0.132701,
+    "leaves": 0.132701,
+    "tubers": 0.159242,
+    "roots": 0.094787,
+    "period": 0.037915
+  },
+  "scoring_config": {
+    "match_gain": 1.15,
+    "conflict_penalty": 1.25,
+    "weak_mismatch_penalty": -0.3,
+    "free_text_base": 0.15,
+    "free_text_lexical_gain": 0.35,
+    "elimination_conflict_threshold": 2
+  },
+  "source": {
+    "cases": "data/COT/phase5_calibration_cases.json",
+    "metrics": {
+      "top1_accuracy": 0.875,
+      "top3_recall": 1.0,
+      "avg_score_spread": 0.1326,
+      "objective": 0.86913
+    }
+  }
+}

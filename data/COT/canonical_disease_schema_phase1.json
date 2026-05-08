@@ -1,0 +1,2744 @@
+{
+  "schema_version": "phase1.v1",
+  "phase": "Phase 01 - Canonical schema foundation",
+  "generated_at_utc": "2026-04-06T14:41:01.937561+00:00",
+  "source": {
+    "primary": "data/COT/potato_disease_symptoms.txt",
+    "notes": [
+      "Eight-factor canonical structure generated for deterministic diagnosis flow.",
+      "Controlled vocabulary and synonym dictionary are included for normalization.",
+      "Clue strength is heuristic and should be calibrated with evaluation data in later phases."
+    ]
+  },
+  "factor_sequence": [
+    "general_appearance",
+    "wilting",
+    "growth_habit",
+    "stems",
+    "leaves",
+    "tubers",
+    "roots",
+    "period"
+  ],
+  "factor_weights": {
+    "general_appearance": 0.14,
+    "wilting": 0.18,
+    "growth_habit": 0.12,
+    "stems": 0.14,
+    "leaves": 0.14,
+    "tubers": 0.14,
+    "roots": 0.1,
+    "period": 0.04
+  },
+  "controlled_vocab": {
+    "general_appearance": [
+      "stunted_patchy",
+      "stunted_general",
+      "normal_growth",
+      "poor_vigor",
+      "bronzing",
+      "chlorosis_general"
+    ],
+    "wilting": [
+      "wilting_present",
+      "wilting_one_sided",
+      "no_wilting",
+      "wilting_late_season"
+    ],
+    "growth_habit": [
+      "upright_erect",
+      "rosette_bushy",
+      "spindly",
+      "leaf_curling",
+      "deformed_growth",
+      "normal_habit"
+    ],
+    "stems": [
+      "vascular_discoloration",
+      "black_lesions_stem",
+      "ooze_present",
+      "stem_rot",
+      "stem_galls",
+      "stem_necrosis",
+      "stem_normal"
+    ],
+    "leaves": [
+      "chlorosis",
+      "interveinal_chlorosis",
+      "leaf_roll_upward",
+      "necrotic_spots",
+      "concentric_rings",
+      "rugosity_crinkling",
+      "leaf_bronzing",
+      "leaf_mosaic",
+      "leaf_normal"
+    ],
+    "tubers": [
+      "vascular_discoloration",
+      "stolon_end_lesions",
+      "cracks_pitted_lesions",
+      "warts_galls",
+      "active_rot",
+      "eyes_discolored",
+      "sclerotia_present",
+      "tuber_normal"
+    ],
+    "roots": [
+      "root_galls",
+      "root_rot",
+      "root_poor_development",
+      "root_necrosis",
+      "root_cysts",
+      "root_normal"
+    ],
+    "period": [
+      "early_stage",
+      "mid_season",
+      "late_season",
+      "temperature_moisture_trigger"
+    ]
+  },
+  "synonym_dictionary": {
+    "general_appearance": {
+      "stunted_patchy": [
+        "localized",
+        "patch"
+      ],
+      "stunted_general": [
+        "stunted",
+        "stunting"
+      ],
+      "normal_growth": [
+        "normal"
+      ],
+      "poor_vigor": [
+        "poor growth",
+        "spindly",
+        "weak"
+      ],
+      "bronzing": [
+        "bronzed",
+        "bronzing"
+      ],
+      "chlorosis_general": [
+        "chlorosis",
+        "pale",
+        "yellow"
+      ]
+    },
+    "wilting": {
+      "wilting_one_sided": [
+        "one side",
+        "one sided"
+      ],
+      "no_wilting": [
+        "no wilting"
+      ],
+      "wilting_late_season": [
+        "after mid season",
+        "late in the season"
+      ],
+      "wilting_present": [
+        "wilt",
+        "wilting"
+      ]
+    },
+    "growth_habit": {
+      "upright_erect": [
+        "erect",
+        "upright"
+      ],
+      "rosette_bushy": [
+        "bushy",
+        "rosette"
+      ],
+      "spindly": [
+        "spindly"
+      ],
+      "leaf_curling": [
+        "curl",
+        "rolled",
+        "rolling"
+      ],
+      "deformed_growth": [
+        "deformed",
+        "distortion",
+        "shortened internodes"
+      ],
+      "normal_habit": [
+        "normal"
+      ]
+    },
+    "stems": {
+      "vascular_discoloration": [
+        "vascular discoloration",
+        "vascular discolouration"
+      ],
+      "black_lesions_stem": [
+        "black",
+        "dark",
+        "lesion"
+      ],
+      "ooze_present": [
+        "ooze"
+      ],
+      "stem_rot": [
+        "decay",
+        "rot",
+        "rotting"
+      ],
+      "stem_galls": [
+        "galls",
+        "warty"
+      ],
+      "stem_necrosis": [
+        "necrosis",
+        "necrotic"
+      ],
+      "stem_normal": [
+        "normal"
+      ]
+    },
+    "leaves": {
+      "leaf_mosaic": [
+        "mosaic",
+        "mottle"
+      ],
+      "interveinal_chlorosis": [
+        "interveinal chlorosis"
+      ],
+      "chlorosis": [
+        "chlorosis",
+        "pale",
+        "yellow"
+      ],
+      "leaf_roll_upward": [
+        "leaf roll",
+        "rolled upward",
+        "upward rolling"
+      ],
+      "necrotic_spots": [
+        "lesion",
+        "necrotic",
+        "spot"
+      ],
+      "concentric_rings": [
+        "concentric",
+        "target"
+      ],
+      "rugosity_crinkling": [
+        "crinkled",
+        "rugosity"
+      ],
+      "leaf_bronzing": [
+        "bronzed",
+        "bronzing"
+      ],
+      "leaf_normal": [
+        "normal"
+      ]
+    },
+    "tubers": {
+      "vascular_discoloration": [
+        "vascular discoloration",
+        "vascular discolouration"
+      ],
+      "stolon_end_lesions": [
+        "stolon",
+        "stolon end"
+      ],
+      "cracks_pitted_lesions": [
+        "crack",
+        "lesion",
+        "pitted",
+        "sunken"
+      ],
+      "warts_galls": [
+        "galls",
+        "warty"
+      ],
+      "active_rot": [
+        "active rot",
+        "soft rot",
+        "watery"
+      ],
+      "eyes_discolored": [
+        "eyes discolored",
+        "eyes discoloured"
+      ],
+      "sclerotia_present": [
+        "sclerotia"
+      ],
+      "tuber_normal": [
+        "normal"
+      ]
+    },
+    "roots": {
+      "root_galls": [
+        "galls"
+      ],
+      "root_rot": [
+        "rot",
+        "rotting"
+      ],
+      "root_poor_development": [
+        "poor development",
+        "poorly developed",
+        "stunted"
+      ],
+      "root_necrosis": [
+        "necrosis",
+        "necrotic"
+      ],
+      "root_cysts": [
+        "cysts"
+      ],
+      "root_normal": [
+        "normal"
+      ]
+    },
+    "period": {
+      "early_stage": [
+        "at planting",
+        "early",
+        "early stage"
+      ],
+      "mid_season": [
+        "mid season"
+      ],
+      "late_season": [
+        "late in the season",
+        "late season"
+      ],
+      "temperature_moisture_trigger": [
+        "dry",
+        "humidity",
+        "soil",
+        "temperature",
+        "wet"
+      ]
+    }
+  },
+  "diseases": [
+    {
+      "disease_id": "1",
+      "disease_name": "Fusarium wilt",
+      "normalized_name": "fusarium wilt",
+      "factors": {
+        "general_appearance": {
+          "evidence": [
+            "General chlorosis from base upwards",
+            "General or of old leaves"
+          ],
+          "normalized_tokens": [
+            "chlorosis_general"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "wilting": {
+          "evidence": [
+            "Wilt with vascular discolouration"
+          ],
+          "normalized_tokens": [
+            "wilting_present"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": [
+            "no_wilting"
+          ]
+        },
+        "growth_habit": {
+          "evidence": [
+            "Red pigmentation or chlorosis of apical leaves stunting general chlorosis, thickening of nodes, aerial tubers, vascular necrosis, basal stem necrosis or early death."
+          ],
+          "normalized_tokens": [],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [
+            "Rotting lesions originating below ground with dry shredding and brown vascular discolouration and pith necrosis at nodes and aerial tubers and or enlarged nodes"
+          ],
+          "normalized_tokens": [
+            "black_lesions_stem",
+            "stem_necrosis",
+            "stem_rot",
+            "vascular_discoloration"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [
+            "Mosaic mottles on tip of leaves, General chlorosis, Upward rolling severe at plant tip, chlorosis or red at bases of tip leaves, may be accompanied by aerial tubers, bronzed and extensive systemic necrosis"
+          ],
+          "normalized_tokens": [
+            "chlorosis",
+            "leaf_bronzing",
+            "leaf_mosaic",
+            "leaf_roll_upward"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [
+            "Stem end browning but firm at stolon attachment",
+            "Stolon attachment discoloured, Eyes discoloured anywhere"
+          ],
+          "normalized_tokens": [
+            "eyes_discolored",
+            "stolon_end_lesions"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [
+            "General rot"
+          ],
+          "normalized_tokens": [
+            "root_rot"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": []
+    },
+    {
+      "disease_id": "2",
+      "disease_name": "PCN",
+      "normalized_name": "pcn",
+      "factors": {
+        "general_appearance": {
+          "evidence": [
+            "In localized areas in field giving patchy appearance"
+          ],
+          "normalized_tokens": [
+            "stunted_patchy"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": [
+            "normal_growth"
+          ]
+        },
+        "wilting": {
+          "evidence": [
+            "Wilt under drought stress"
+          ],
+          "normalized_tokens": [
+            "wilting_present"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": [
+            "no_wilting"
+          ]
+        },
+        "growth_habit": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [
+            "White to brown cysts, Stunted, Proliferation of lateral roots"
+          ],
+          "normalized_tokens": [
+            "root_cysts",
+            "root_poor_development"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [
+            "well drained aerated sand silt, medium to heavy clay soils with moisture content of 50-75% of FC, Soil temperatures <26 C"
+          ],
+          "normalized_tokens": [
+            "temperature_moisture_trigger"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": [
+        "well drained aerated sand silt, medium to heavy clay soils with moisture content of 50-75% of FC, Soil temperatures <26 C"
+      ]
+    },
+    {
+      "disease_id": "3",
+      "disease_name": "RKN",
+      "normalized_name": "rkn",
+      "factors": {
+        "general_appearance": {
+          "evidence": [
+            "In localized areas in field giving patchy appearance."
+          ],
+          "normalized_tokens": [
+            "stunted_patchy"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": [
+            "normal_growth"
+          ]
+        },
+        "wilting": {
+          "evidence": [
+            "Wilt under drought stress"
+          ],
+          "normalized_tokens": [
+            "wilting_present"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": [
+            "no_wilting"
+          ]
+        },
+        "growth_habit": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [
+            "Irregular purplish brown lesions",
+            "Warty tubers"
+          ],
+          "normalized_tokens": [
+            "cracks_pitted_lesions",
+            "warts_galls"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [
+            "White to dark brown galls, Proliferation of lateral roots"
+          ],
+          "normalized_tokens": [
+            "root_galls"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [
+            "coarse textured soils"
+          ],
+          "normalized_tokens": [
+            "temperature_moisture_trigger"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": [
+        "coarse textured soils"
+      ]
+    },
+    {
+      "disease_id": "4",
+      "disease_name": "Brown Rot",
+      "normalized_name": "brown rot",
+      "factors": {
+        "general_appearance": {
+          "evidence": [
+            "Stunted plants"
+          ],
+          "normalized_tokens": [
+            "stunted_general"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": [
+            "normal_growth"
+          ]
+        },
+        "wilting": {
+          "evidence": [
+            "wilt of one stem or one side of leaf, stem or side of plant, wilt of green leaves, later chlorosis and necrosis"
+          ],
+          "normalized_tokens": [
+            "wilting_one_sided",
+            "wilting_present"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": [
+            "no_wilting"
+          ]
+        },
+        "growth_habit": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [
+            "Dark narrow streaks corresponding to infected vascular strands visible through the epidermis. If stem cut and cut surface are placed in contact and then drawn apart slowly fine strants of bacterial ooze become visible and strtech before breaking. When cut surface is immersed in a glass of water white slimy bacterial ooze can be seen."
+          ],
+          "normalized_tokens": [
+            "black_lesions_stem",
+            "ooze_present"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [
+            "Enlarged lenticels, Stolon attachment discoloured",
+            "Vascular discolouration, soft texture, ooze when squeezed",
+            "Vascular tissue discoloured reddish brown to black"
+          ],
+          "normalized_tokens": [
+            "stolon_end_lesions",
+            "vascular_discoloration"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [
+            "Sandy soils, peat soils, overlimed, acid soils, mean soil temperatures >15 C"
+          ],
+          "normalized_tokens": [
+            "temperature_moisture_trigger"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": [
+        "Sandy soils, peat soils, overlimed, acid soils, mean soil temperatures >15 C"
+      ]
+    },
+    {
+      "disease_id": "5",
+      "disease_name": "Black leg",
+      "normalized_name": "black leg",
+      "factors": {
+        "general_appearance": {
+          "evidence": [
+            "Stunted with stiff erect growth habit"
+          ],
+          "normalized_tokens": [
+            "stunted_general"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": [
+            "normal_growth"
+          ]
+        },
+        "wilting": {
+          "evidence": [
+            "Leaflets and later entire plant may wilt"
+          ],
+          "normalized_tokens": [
+            "wilting_present"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": [
+            "no_wilting"
+          ]
+        },
+        "growth_habit": {
+          "evidence": [
+            "Red pigmentation or chlorosis of apical leaves stunting general chlorosis, thickening of nodes, aerial tubers, vascular necrosis, basal stem necrosis or early death."
+          ],
+          "normalized_tokens": [],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [
+            "Inky black extending from seed tuber, stem pith is decayed above the black discolouration, vascular tissues in the stem are discoloured"
+          ],
+          "normalized_tokens": [
+            "black_lesions_stem",
+            "stem_rot"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [
+            "Foliage is chlorotic ith leaflets rolling upward at the margins"
+          ],
+          "normalized_tokens": [],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [
+            "Necrotic soft progressing from seed piece",
+            "Tubers may show symptoms ranging from slight vascular discolouration to soft rot of entire tuber. Typicallyinfected tubers have soft rot in the pith or medullary region of the tuber extending into the tuber from the stolon end"
+          ],
+          "normalized_tokens": [
+            "active_rot",
+            "stolon_end_lesions",
+            "vascular_discoloration"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [
+            "Cool wet soil at planting followed by high temperature after emergence, Tubes harvested atsoil temperatures of 20-25 C are susceptible"
+          ],
+          "normalized_tokens": [
+            "early_stage",
+            "temperature_moisture_trigger"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": [
+        "Cool wet soil at planting followed by high temperature after emergence, Tubes harvested atsoil temperatures of 20-25 C are susceptible"
+      ]
+    },
+    {
+      "disease_id": "6",
+      "disease_name": "PLRV",
+      "normalized_name": "plrv",
+      "factors": {
+        "general_appearance": {
+          "evidence": [
+            "Mild to severe stunting"
+          ],
+          "normalized_tokens": [
+            "stunted_general"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": [
+            "normal_growth"
+          ]
+        },
+        "wilting": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "growth_habit": {
+          "evidence": [
+            "Plants show upright growth habit"
+          ],
+          "normalized_tokens": [
+            "upright_erect"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [
+            "Stiff papery texture, pale colour and upward rolling of tip leaves with pink at margins"
+          ],
+          "normalized_tokens": [
+            "chlorosis",
+            "leaf_roll_upward"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": []
+    },
+    {
+      "disease_id": "7",
+      "disease_name": "Mg def",
+      "normalized_name": "mg def",
+      "factors": {
+        "general_appearance": {
+          "evidence": [
+            "Stunted or poor growth, pale light green to yellow leaves which later becomes necrotic"
+          ],
+          "normalized_tokens": [
+            "chlorosis_general",
+            "poor_vigor",
+            "stunted_general"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": [
+            "normal_growth"
+          ]
+        },
+        "wilting": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "growth_habit": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [
+            "Older leaves pale light green coloured, , necrosis begins at leaf tips and margins progresses towards the veins and most severe toward the centre of the leaf, leaves are usually thick and brittle and roll upward with tissue raised between veins. leavesInterveinal chlorosis to white yellow chlorosis"
+          ],
+          "normalized_tokens": [
+            "chlorosis",
+            "interveinal_chlorosis"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [
+            "Stunted"
+          ],
+          "normalized_tokens": [
+            "root_poor_development"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [
+            "Sandy soils, High K"
+          ],
+          "normalized_tokens": [
+            "temperature_moisture_trigger"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": [
+        "Sandy soils, High K"
+      ]
+    },
+    {
+      "disease_id": "8",
+      "disease_name": "P def",
+      "normalized_name": "p def",
+      "factors": {
+        "general_appearance": {
+          "evidence": [
+            "Stunted or poor growth, spindly with lustreless leaves, chlorotic to necrotic margins"
+          ],
+          "normalized_tokens": [
+            "poor_vigor",
+            "stunted_general"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": [
+            "normal_growth"
+          ]
+        },
+        "wilting": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "growth_habit": {
+          "evidence": [
+            "chlorotic to necrotic margins"
+          ],
+          "normalized_tokens": [],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [
+            "Cupped lower leaves or throughout the plant, chlorosis absent to mild"
+          ],
+          "normalized_tokens": [
+            "chlorosis"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [
+            "Necrotic spots or flecks principally in medullary tissue"
+          ],
+          "normalized_tokens": [],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [
+            "Poor development"
+          ],
+          "normalized_tokens": [
+            "root_poor_development"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [
+            "Calcareous soils, very light or very heavy soils"
+          ],
+          "normalized_tokens": [
+            "temperature_moisture_trigger"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": [
+        "Calcareous soils, very light or very heavy soils"
+      ]
+    },
+    {
+      "disease_id": "9",
+      "disease_name": "Rhizoctonia",
+      "normalized_name": "rhizoctonia",
+      "factors": {
+        "general_appearance": {
+          "evidence": [
+            "Stunting and rosetting of plant tops"
+          ],
+          "normalized_tokens": [
+            "stunted_general"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": [
+            "normal_growth"
+          ]
+        },
+        "wilting": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "growth_habit": {
+          "evidence": [
+            "Poor uneven stand of weak plants"
+          ],
+          "normalized_tokens": [],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [
+            "Brown lesions extending from seed tuber with girdling of stems, having white mycelia and enlarged nodes and or aerial tubers"
+          ],
+          "normalized_tokens": [
+            "black_lesions_stem"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [
+            "Upward rolling severe at plant tip, chlorosis or red at bases of tip leaves, may be accompanied by aerial tubers"
+          ],
+          "normalized_tokens": [
+            "chlorosis",
+            "leaf_roll_upward"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [
+            "Brown lesions and girdling",
+            "Pitted lesions, Skin cracked, tuber cracks stem end necrosis",
+            "Stolons vey short and tubers set close to the stem, normal tuber shape, black sclerotia on tuber surface,"
+          ],
+          "normalized_tokens": [
+            "cracks_pitted_lesions",
+            "sclerotia_present",
+            "stolon_end_lesions",
+            "tuber_normal"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": [
+            "active_rot",
+            "cracks_pitted_lesions",
+            "eyes_discolored",
+            "stolon_end_lesions",
+            "warts_galls"
+          ]
+        },
+        "roots": {
+          "evidence": [
+            "Large sclerotia"
+          ],
+          "normalized_tokens": [
+            "root_rot"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [
+            "Soil temperature of around 18 C, poorly drained soils"
+          ],
+          "normalized_tokens": [
+            "temperature_moisture_trigger"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": [
+        "Soil temperature of around 18 C, poorly drained soils"
+      ]
+    },
+    {
+      "disease_id": "10",
+      "disease_name": "Mn toxicity",
+      "normalized_name": "mn toxicity",
+      "factors": {
+        "general_appearance": {
+          "evidence": [
+            "Stunted and mature early"
+          ],
+          "normalized_tokens": [
+            "stunted_general"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": [
+            "normal_growth"
+          ]
+        },
+        "wilting": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "growth_habit": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [
+            "Occurs at the lower stems and progresses upwards, Stem streak or stem necrosis or stem break occurs, Most severe at petiole bases and developing on the petioles"
+          ],
+          "normalized_tokens": [
+            "stem_necrosis"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [
+            "pale yellow green Interveinal chlorosis , often with marginal necrosis, leaves dry and hang down and break off."
+          ],
+          "normalized_tokens": [
+            "chlorosis",
+            "interveinal_chlorosis"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": []
+    },
+    {
+      "disease_id": "11",
+      "disease_name": "K def",
+      "normalized_name": "k def",
+      "factors": {
+        "general_appearance": {
+          "evidence": [
+            "Mild to severe stunting early in the season,",
+            "Unusually dark green or bluish green or glossy foliage in the beginning followed by general bronzing or of old leaves"
+          ],
+          "normalized_tokens": [
+            "bronzing",
+            "stunted_general"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": [
+            "normal_growth"
+          ]
+        },
+        "wilting": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "growth_habit": {
+          "evidence": [
+            "shortened internodes and downward leaf curl,"
+          ],
+          "normalized_tokens": [
+            "deformed_growth",
+            "leaf_curling"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [
+            "Cupped lower leaves or throughout the plant, chlorosis absent to mild, bronzed and necrotic"
+          ],
+          "normalized_tokens": [
+            "chlorosis",
+            "leaf_bronzing",
+            "necrotic_spots"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [
+            "Necrotic brown to dark sunken lesions develop at stolon end becoming a hollow spot when the lesions dry out. Brown to black enzymatic discolouration of raw cut surface is observed when exposed to air.",
+            "Short"
+          ],
+          "normalized_tokens": [
+            "cracks_pitted_lesions",
+            "stolon_end_lesions"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [
+            "Poorly developed"
+          ],
+          "normalized_tokens": [
+            "root_poor_development"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": []
+    },
+    {
+      "disease_id": "12",
+      "disease_name": "Zn def",
+      "normalized_name": "zn def",
+      "factors": {
+        "general_appearance": {
+          "evidence": [
+            "General or of old leaves",
+            "Stunting of plants"
+          ],
+          "normalized_tokens": [
+            "stunted_general"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": [
+            "normal_growth"
+          ]
+        },
+        "wilting": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "growth_habit": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [
+            "Young leaves twisted and upward rolled with chlorosis giving fern leaf appearance"
+          ],
+          "normalized_tokens": [
+            "chlorosis"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [
+            "Alkaline soils, High P,"
+          ],
+          "normalized_tokens": [
+            "temperature_moisture_trigger"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": [
+        "Alkaline soils, High P,"
+      ]
+    },
+    {
+      "disease_id": "13",
+      "disease_name": "Verticillium wilt",
+      "normalized_name": "verticillium wilt",
+      "factors": {
+        "general_appearance": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "wilting": {
+          "evidence": [
+            "Wilt with vascular discolouration"
+          ],
+          "normalized_tokens": [
+            "wilting_present"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": [
+            "no_wilting"
+          ]
+        },
+        "growth_habit": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [
+            "Brown vascular discolouration more severe on lower parts"
+          ],
+          "normalized_tokens": [
+            "vascular_discoloration"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [
+            "General chlorosis"
+          ],
+          "normalized_tokens": [
+            "chlorosis"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [
+            "Stem end browning and netlike at stolon attachment",
+            "Stolon attachment discoloured, Eyes discoloured principally at tuber tip"
+          ],
+          "normalized_tokens": [
+            "eyes_discolored",
+            "stolon_end_lesions"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": []
+    },
+    {
+      "disease_id": "14",
+      "disease_name": "Charcoal rot",
+      "normalized_name": "charcoal rot",
+      "factors": {
+        "general_appearance": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "wilting": {
+          "evidence": [
+            "Chlorosis and sudden wilt of plants and early death"
+          ],
+          "normalized_tokens": [
+            "wilting_present"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": [
+            "no_wilting"
+          ]
+        },
+        "growth_habit": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [
+            "Active rot watery on exposure to air shades of pink brown to black, light gray cavities with mycelium and black sclerotia at later stages of disease development",
+            "Enlarged lenticels, Stolon attachment discoloured, Eyes discoloured anywhere"
+          ],
+          "normalized_tokens": [
+            "active_rot",
+            "eyes_discolored",
+            "sclerotia_present",
+            "stolon_end_lesions"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [
+            "Temperatures above 32 C"
+          ],
+          "normalized_tokens": [
+            "temperature_moisture_trigger"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": [
+        "Temperatures above 32 C"
+      ]
+    },
+    {
+      "disease_id": "15",
+      "disease_name": "Pink rot",
+      "normalized_name": "pink rot",
+      "factors": {
+        "general_appearance": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "wilting": {
+          "evidence": [
+            "Wilting at any time but generally late in the season"
+          ],
+          "normalized_tokens": [
+            "wilting_late_season",
+            "wilting_present"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": [
+            "no_wilting"
+          ]
+        },
+        "growth_habit": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [
+            "Stem lesions may extend upto basal leaves with water soaked and light brown vascular discolourationat advancing margin. Necrotic stems and roots are brown to black"
+          ],
+          "normalized_tokens": [
+            "black_lesions_stem",
+            "stem_necrosis",
+            "stem_rot",
+            "vascular_discoloration"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [
+            "Leaves become Chlorotic, wilt dry up and abscise starting from stem base"
+          ],
+          "normalized_tokens": [],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [
+            "Active rot watery on exposure to air shades of pink brown to black, advancing margin clearly delimied by black line",
+            "Necrosis",
+            "Underlying tissue brown to black",
+            "Vascular discolouration, soft texture, ooze when squeezed"
+          ],
+          "normalized_tokens": [
+            "active_rot",
+            "vascular_discoloration"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [
+            "Brown to black necrosis"
+          ],
+          "normalized_tokens": [
+            "root_necrosis"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": []
+    },
+    {
+      "disease_id": "16",
+      "disease_name": "Ring rot",
+      "normalized_name": "ring rot",
+      "factors": {
+        "general_appearance": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "wilting": {
+          "evidence": [
+            "Wilting of leaves and stems after mid season"
+          ],
+          "normalized_tokens": [
+            "wilting_late_season",
+            "wilting_present"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": [
+            "no_wilting"
+          ]
+        },
+        "growth_habit": {
+          "evidence": [
+            "rosette with dwarfing"
+          ],
+          "normalized_tokens": [
+            "rosette_bushy"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [
+            "lower leaves pale green slightly rolled at the margins and first to wilt leading to Interveinal chlorosis of"
+          ],
+          "normalized_tokens": [
+            "chlorosis",
+            "interveinal_chlorosis"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [
+            "Stolon attachment discoloured",
+            "Vascular tissue discoloured reddish brown to black and milky white exudate is observed when the cut tubers are squeezed"
+          ],
+          "normalized_tokens": [
+            "stolon_end_lesions"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": []
+    },
+    {
+      "disease_id": "17",
+      "disease_name": "Stem Rot",
+      "normalized_name": "stem rot",
+      "factors": {
+        "general_appearance": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "wilting": {
+          "evidence": [
+            "Plants are wilted"
+          ],
+          "normalized_tokens": [
+            "wilting_present"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": [
+            "no_wilting"
+          ]
+        },
+        "growth_habit": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [
+            "White fan like mycelial growth radiates over the soil surface and numerous round tan sclerotia form in the older mycelia at the stem base and soil surface."
+          ],
+          "normalized_tokens": [
+            "stem_rot"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [
+            "Leaves appear chlorotic"
+          ],
+          "normalized_tokens": [],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [
+            "High temperature 28-30 C, high humidity"
+          ],
+          "normalized_tokens": [
+            "temperature_moisture_trigger"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": [
+        "High temperature 28-30 C, high humidity"
+      ]
+    },
+    {
+      "disease_id": "18",
+      "disease_name": "Photochemical oxidant air pollution",
+      "normalized_name": "photochemical oxidant air pollution",
+      "factors": {
+        "general_appearance": {
+          "evidence": [
+            "General or of old leaves"
+          ],
+          "normalized_tokens": [],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "wilting": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "growth_habit": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [
+            "Bronzed on upper surface and margins, Plants are chlorotic premature leaf death from bottom upward"
+          ],
+          "normalized_tokens": [
+            "leaf_bronzing"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": []
+    },
+    {
+      "disease_id": "19",
+      "disease_name": "N def",
+      "normalized_name": "n def",
+      "factors": {
+        "general_appearance": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "wilting": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "growth_habit": {
+          "evidence": [
+            "Chlorotic slow growing erect, having small erect pale green leaves. Lower leaves are mostly affected"
+          ],
+          "normalized_tokens": [
+            "upright_erect"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [
+            "Necrotic lesions speckling on lower leaves and also on upper leaves"
+          ],
+          "normalized_tokens": [
+            "necrotic_spots"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": []
+    },
+    {
+      "disease_id": "20",
+      "disease_name": "Boron def",
+      "normalized_name": "boron def",
+      "factors": {
+        "general_appearance": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "wilting": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "growth_habit": {
+          "evidence": [
+            "Bushy appearance",
+            "Growing points die, lateral buds active, shortened internodes and bushy appearance"
+          ],
+          "normalized_tokens": [
+            "deformed_growth",
+            "rosette_bushy"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [
+            "Stiff papery texture, pale colour and upward rolling Cupped lower leaves or throughout the plant, chlorosis absent to mild"
+          ],
+          "normalized_tokens": [
+            "chlorosis",
+            "leaf_roll_upward"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [
+            "Stolon attachment discoloured, Small tubers with skin cracked particularly at stolon end, Brown vascular discolouration in tubers"
+          ],
+          "normalized_tokens": [
+            "cracks_pitted_lesions",
+            "stolon_end_lesions",
+            "vascular_discoloration"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [
+            "Short, thick and stunted"
+          ],
+          "normalized_tokens": [
+            "root_poor_development"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [
+            "Sandy soils overlimed soils"
+          ],
+          "normalized_tokens": [
+            "temperature_moisture_trigger"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": [
+        "Sandy soils overlimed soils"
+      ]
+    },
+    {
+      "disease_id": "21",
+      "disease_name": "Early blight",
+      "normalized_name": "early blight",
+      "factors": {
+        "general_appearance": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "wilting": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "growth_habit": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [
+            "Small brown to black necrotic lesions on stem"
+          ],
+          "normalized_tokens": [
+            "black_lesions_stem",
+            "stem_necrosis",
+            "stem_rot"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [
+            "Small spots, dry and papery in texture in lower and older leaves. The spots expand becoming brown to black circular to ovoid lesions often appearing to have concentric rings giving it a target boar like appearance. The tissue around the lesions is often chlorotic. As the disease advances the entire leaves become chlorotic and then nerotic and the leaves dry but do not abscise."
+          ],
+          "normalized_tokens": [
+            "concentric_rings",
+            "necrotic_spots"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [
+            "Dark sunken circular to irregular shaped lesions accompanied by raised border of purplish to gun metal colour. The underlying tissue is dry leathery to corky and usually brown."
+          ],
+          "normalized_tokens": [
+            "cracks_pitted_lesions"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [
+            "Alternating wet and dry weather, prolonged period of dew, poor nutrition or other stresses temperature range 24-29 C."
+          ],
+          "normalized_tokens": [
+            "temperature_moisture_trigger"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": [
+        "Alternating wet and dry weather, prolonged period of dew, poor nutrition or other stresses temperature range 24-29 C."
+      ]
+    },
+    {
+      "disease_id": "22",
+      "disease_name": "Chemical injury",
+      "normalized_name": "chemical injury",
+      "factors": {
+        "general_appearance": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "wilting": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "growth_habit": {
+          "evidence": [
+            "Spindly, crinkled leaves"
+          ],
+          "normalized_tokens": [
+            "spindly"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [
+            "Stolon attachment discoloured, necrotic lesions often in bands, scab like"
+          ],
+          "normalized_tokens": [
+            "cracks_pitted_lesions",
+            "stolon_end_lesions"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": []
+    },
+    {
+      "disease_id": "23",
+      "disease_name": "Ca def",
+      "normalized_name": "ca def",
+      "factors": {
+        "general_appearance": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "wilting": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "growth_habit": {
+          "evidence": [
+            "Spindly with Rosette appearance at the tip"
+          ],
+          "normalized_tokens": [
+            "rosette_bushy",
+            "spindly"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [
+            "crinkled leaflets with Chlorotic or necrotic margins"
+          ],
+          "normalized_tokens": [
+            "necrotic_spots",
+            "rugosity_crinkling"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [
+            "Brown necrosis in vascular ring near the stolon attachments, tubers may be small",
+            "Sprouts become necrotic just below tip, seed tubers are hard little tubers may be present"
+          ],
+          "normalized_tokens": [
+            "stolon_end_lesions"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [
+            "Sandy soil, pH <5.0, High Mn or Al,"
+          ],
+          "normalized_tokens": [
+            "temperature_moisture_trigger"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": [
+        "Sandy soil, pH <5.0, High Mn or Al,"
+      ]
+    },
+    {
+      "disease_id": "24",
+      "disease_name": "Common scab",
+      "normalized_name": "common scab",
+      "factors": {
+        "general_appearance": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "wilting": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "growth_habit": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [
+            "Brown lesions extending from seed tuber, pith dark and cortical decay"
+          ],
+          "normalized_tokens": [
+            "black_lesions_stem",
+            "stem_rot"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [
+            "Tan brown to black lesions whih are normally circular. Lesions may be superficial cork like or pitted. Pitted lesions are dark bown to almost black. Tissue under lesion straw coloured and somewhat translucent."
+          ],
+          "normalized_tokens": [
+            "cracks_pitted_lesions",
+            "tuber_normal"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": [
+            "active_rot",
+            "cracks_pitted_lesions",
+            "eyes_discolored",
+            "stolon_end_lesions",
+            "warts_galls"
+          ]
+        },
+        "roots": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": []
+    },
+    {
+      "disease_id": "25",
+      "disease_name": "Late blight",
+      "normalized_name": "late blight",
+      "factors": {
+        "general_appearance": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "wilting": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "growth_habit": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [
+            "Extensive brown to black necrosis"
+          ],
+          "normalized_tokens": [
+            "black_lesions_stem",
+            "stem_necrosis"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [
+            "Necrotic lesions without concentric zonation black when wet and brown when dry with or without sparse white sporulation possibly yellow halo"
+          ],
+          "normalized_tokens": [
+            "chlorosis",
+            "concentric_rings",
+            "necrotic_spots"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [
+            "Exterior of infected tubers show irregular small to large slightly depressed areas of brown to purplish skin. The boundary line between diseased and healthy tissue is not clearly defined"
+          ],
+          "normalized_tokens": [],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [
+            "Temp, RH"
+          ],
+          "normalized_tokens": [],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": [
+        "Temp, RH"
+      ]
+    },
+    {
+      "disease_id": "26",
+      "disease_name": "Wart",
+      "normalized_name": "wart",
+      "factors": {
+        "general_appearance": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "wilting": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "growth_habit": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [
+            "Warty outgrowth or tumourous Galls at the base of the stem. Above ground galls may appear green to brown"
+          ],
+          "normalized_tokens": [
+            "stem_galls"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [
+            "Below ground galls appear on stem bases, stolons and yes of tubers. Subterranean galls are white to brown and become black due to decay",
+            "Galls on tips"
+          ],
+          "normalized_tokens": [
+            "stolon_end_lesions",
+            "warts_galls"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [
+            "Cool temperatures with an average of 18 C, about 160 days of winters with temperatures < 5 C and annual precipitation of 70 cm favour the disease"
+          ],
+          "normalized_tokens": [
+            "temperature_moisture_trigger"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": [
+        "Cool temperatures with an average of 18 C, about 160 days of winters with temperatures < 5 C and annual precipitation of 70 cm favour the disease"
+      ]
+    },
+    {
+      "disease_id": "27",
+      "disease_name": "Mn def",
+      "normalized_name": "mn def",
+      "factors": {
+        "general_appearance": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "wilting": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "growth_habit": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [
+            "Upper leaves light green Interveinal chlorosis later turns yellow to white, lower leaves not affected, leaves near shoot tip roll upward, in severe cases brown necrotic spots develop along the veins of younger leaves"
+          ],
+          "normalized_tokens": [
+            "chlorosis",
+            "interveinal_chlorosis",
+            "necrotic_spots"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [
+            "Calcareous or excessively limed soils with high pH"
+          ],
+          "normalized_tokens": [
+            "temperature_moisture_trigger"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": [
+        "Calcareous or excessively limed soils with high pH"
+      ]
+    },
+    {
+      "disease_id": "28",
+      "disease_name": "Mosaic Viruses",
+      "normalized_name": "mosaic viruses",
+      "factors": {
+        "general_appearance": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "wilting": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "growth_habit": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [
+            "Mild to severe rugosity"
+          ],
+          "normalized_tokens": [
+            "rugosity_crinkling"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": []
+    },
+    {
+      "disease_id": "29",
+      "disease_name": "Phoma leaf spot",
+      "normalized_name": "phoma leaf spot",
+      "factors": {
+        "general_appearance": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "wilting": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "growth_habit": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [
+            "Round brown necrotic lesions may have concentric rings like that in early blight but the spots are not sunken."
+          ],
+          "normalized_tokens": [
+            "concentric_rings",
+            "necrotic_spots"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": []
+    },
+    {
+      "disease_id": "30",
+      "disease_name": "Hollow heart",
+      "normalized_name": "hollow heart",
+      "factors": {
+        "general_appearance": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "wilting": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "growth_habit": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [
+            "Central tissue appears water soaked or translucent followed by formation of one cavity at the centre of the tuber, cavities are lens or star shaped and angular at the corners, Centre hollow or cracked"
+          ],
+          "normalized_tokens": [
+            "cracks_pitted_lesions"
+          ],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [
+            "Cultural practices favouring rapid tuber enlargement, moisture stress followed by conditions favouring rapid growth, marginal K deficiency"
+          ],
+          "normalized_tokens": [],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": [
+        "Cultural practices favouring rapid tuber enlargement, moisture stress followed by conditions favouring rapid growth, marginal K deficiency"
+      ]
+    },
+    {
+      "disease_id": "31",
+      "disease_name": "Lightning injury",
+      "normalized_name": "lightning injury",
+      "factors": {
+        "general_appearance": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "wilting": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "growth_habit": {
+          "evidence": [
+            "Soon after lightning tops wilt and stems collapse. Leaves may remain green and turgid. Affected portions are soft water soaked and discolourd black to brown. Tissues dry and become chocolate brown to tan"
+          ],
+          "normalized_tokens": [],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [
+            "Black lesions extending from seed tuber, pith dark and cortical decay, brown vascular discolouration"
+          ],
+          "normalized_tokens": [
+            "black_lesions_stem",
+            "stem_rot",
+            "vascular_discoloration"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [
+            "Upward rolling severe at plant tip, chlorosis or red at bases of tip leaves, may be accompanied by aerial tubers"
+          ],
+          "normalized_tokens": [
+            "chlorosis",
+            "leaf_roll_upward"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [
+            "Stolon attachment discoloured",
+            "Vascular tissue discoloured reddish brown to black"
+          ],
+          "normalized_tokens": [
+            "stolon_end_lesions"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": []
+    },
+    {
+      "disease_id": "32",
+      "disease_name": "Low temperature foliage injury",
+      "normalized_name": "low temperature foliage injury",
+      "factors": {
+        "general_appearance": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "wilting": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "growth_habit": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "stems": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "leaves": {
+          "evidence": [
+            "Irregular distortion of leaflets, chloosis in diffused areas, Frozen leaves rapidly wilt collapse and when thawed become water soaked, They turn black when damp and brown when dry"
+          ],
+          "normalized_tokens": [],
+          "clue_strength": "supportive",
+          "conflicting_tokens": []
+        },
+        "tubers": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "roots": {
+          "evidence": [],
+          "normalized_tokens": [],
+          "clue_strength": "unknown",
+          "conflicting_tokens": []
+        },
+        "period": {
+          "evidence": [
+            "Temperatures at or near 0 C"
+          ],
+          "normalized_tokens": [
+            "temperature_moisture_trigger"
+          ],
+          "clue_strength": "required",
+          "conflicting_tokens": []
+        }
+      },
+      "abiotic_context": [
+        "Temperatures at or near 0 C"
+      ]
+    }
+  ],
+  "quality_flags": {
+    "disease_count": 32,
+    "factors_per_disease": 8,
+    "contains_conflicting_clues": true
+  }
+}

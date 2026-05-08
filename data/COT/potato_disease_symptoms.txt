@@ -1,0 +1,269 @@
+Disease: Fusarium wilt
+Stunted poor growth: General chlorosis from base upwards
+Wilt: Wilt with vascular discolouration
+Bronzing: General or of old leaves
+Deformed: Red pigmentation or chlorosis of apical leaves stunting general chlorosis, thickening of nodes, aerial tubers, vascular necrosis, basal stem necrosis or early death.
+Stems: Rotting lesions originating below ground with dry shredding and brown vascular discolouration and pith necrosis at nodes and aerial tubers and or enlarged nodes
+With chlorosis: Mosaic mottles on tip of leaves, General chlorosis, Upward rolling severe at plant tip, chlorosis or red at bases of tip leaves, may be accompanied by aerial tubers, bronzed and extensive systemic necrosis
+Normal Tuber shape surface unblemished: Stem end browning but firm at stolon attachment
+Normal tuber shape surface blemished without actve rot: Stolon attachment discoloured, Eyes discoloured anywhere
+Roots: General rot
+
+--------------------------------------------------
+
+Disease: PCN
+Stunted poor growth: In localized areas in field giving patchy appearance
+Wilt: Wilt under drought stress
+Roots: White to brown cysts, Stunted, Proliferation of lateral roots
+Abiotic factors: well drained aerated sand silt, medium to heavy clay soils with moisture content of 50-75% of FC, Soil temperatures <26 C
+
+--------------------------------------------------
+
+Disease: RKN
+Stunted poor growth: In localized areas in field giving patchy appearance.
+Wilt: Wilt under drought stress
+Normal Tuber shape surface unblemished: Warty tubers
+Normal tuber shape surface blemished without actve rot: Irregular purplish brown lesions
+Roots: White to dark brown galls, Proliferation of lateral roots
+Abiotic factors: coarse textured soils
+
+--------------------------------------------------
+
+Disease: Brown Rot
+Stunted poor growth: Stunted plants
+Wilt:  wilt of one stem or one side of leaf, stem or side of plant, wilt of green leaves, later chlorosis and necrosis
+Stems: Dark narrow streaks corresponding to infected vascular strands visible through the epidermis. If stem cut and cut surface are placed in contact and then drawn apart slowly fine strants of bacterial ooze become visible and strtech before breaking. When cut surface is immersed in a glass of water white slimy bacterial ooze can be seen.
+Normal Tuber shape surface unblemished: Vascular discolouration, soft texture, ooze when squeezed
+Normal tuber shape surface blemished without actve rot: Enlarged lenticels, Stolon attachment discoloured
+Tubers with active rot: Vascular tissue discoloured reddish brown to black
+Abiotic factors: Sandy soils, peat soils, overlimed, acid soils, mean soil temperatures >15 C
+
+--------------------------------------------------
+
+Disease: Black leg
+Stunted poor growth: Stunted with stiff erect growth habit
+Wilt: Leaflets and later entire plant may wilt
+Deformed: Red pigmentation or chlorosis of apical leaves stunting general chlorosis, thickening of nodes, aerial tubers, vascular necrosis, basal stem necrosis or early death.
+Stems: Inky black extending from seed tuber, stem pith is decayed above the black discolouration, vascular tissues in the stem are discoloured
+With chlorosis: Foliage is chlorotic ith leaflets rolling upward at the margins 
+Tubers with active rot: Tubers may show symptoms ranging from slight vascular discolouration to soft rot of entire tuber. Typicallyinfected tubers have soft rot in the pith or medullary region of the tuber extending into the tuber from the stolon end
+Seed Tubers: Necrotic soft progressing from seed piece
+Abiotic factors: Cool wet soil at planting followed by high temperature after emergence, Tubes harvested atsoil temperatures of 20-25 C are susceptible
+
+--------------------------------------------------
+
+Disease: PLRV
+Stunted poor growth: Mild to severe stunting
+Upright growth: Plants show upright growth habit
+Chlorosis absent to mild: Stiff papery texture, pale colour and upward rolling of tip leaves with pink at margins
+
+--------------------------------------------------
+
+Disease: Mg def
+Stunted poor growth: Stunted or poor growth, pale light green to yellow leaves which later becomes necrotic
+With chlorosis: Older leaves pale light green coloured, , necrosis begins at leaf tips and margins progresses towards the veins and most severe toward the centre of the leaf, leaves are usually thick and brittle and roll upward with tissue raised between veins. leavesInterveinal chlorosis to white yellow chlorosis 
+Roots: Stunted
+Abiotic factors: Sandy soils, High K
+
+--------------------------------------------------
+
+Disease: P def
+Stunted poor growth: Stunted or poor growth, spindly with lustreless leaves, chlorotic to necrotic margins
+Deformed: chlorotic to necrotic margins
+Chlorosis absent to mild: Cupped lower leaves or throughout the plant, chlorosis absent to mild
+Normal Tuber shape surface unblemished: Necrotic spots or flecks principally in medullary tissue
+Roots: Poor development
+Abiotic factors: Calcareous soils, very light or very heavy soils 
+
+--------------------------------------------------
+
+Disease: Rhizoctonia
+Stunted poor growth: Stunting and rosetting of plant tops
+Deformed: Poor uneven stand of weak plants
+Stems: Brown lesions extending from seed tuber with girdling of stems, having white mycelia and enlarged nodes and or aerial tubers
+With chlorosis: Upward rolling severe at plant tip, chlorosis or red at bases of tip leaves, may be accompanied by aerial tubers
+Normal Tuber shape surface unblemished: Stolons vey short and tubers set close to the stem, normal tuber shape, black sclerotia on tuber surface,
+Normal tuber shape surface blemished without actve rot:  Pitted lesions, Skin cracked, tuber cracks stem end necrosis
+Stolons: Brown lesions and girdling
+Roots: Large sclerotia
+Abiotic factors: Soil temperature of around 18 C, poorly drained soils
+
+--------------------------------------------------
+
+Disease: Mn toxicity
+Stunted poor growth: Stunted and mature early
+Stems: Occurs at the lower stems and progresses upwards, Stem streak or stem necrosis or stem break occurs, Most severe at petiole bases and developing on the petioles
+With chlorosis: pale yellow green Interveinal chlorosis , often with marginal necrosis, leaves dry and hang down and break off. 
+
+--------------------------------------------------
+
+Disease: K def
+Stunted poor growth: Mild to severe stunting early in the season,
+Bronzing: Unusually dark green or bluish green or glossy foliage in the beginning followed by general bronzing or of old leaves
+Deformed: shortened internodes and downward leaf curl,
+Chlorosis absent to mild: Cupped lower leaves or throughout the plant, chlorosis absent to mild, bronzed and necrotic
+Normal tuber shape surface blemished without actve rot: Necrotic brown to dark sunken lesions develop at stolon end becoming a hollow spot when the lesions dry out. Brown to black enzymatic discolouration of raw cut surface is observed when exposed to air.
+Stolons: Short
+Roots: Poorly developed
+
+--------------------------------------------------
+
+Disease: Zn def
+Stunted poor growth: Stunting of plants
+Bronzing: General or of old leaves
+With chlorosis: Young leaves twisted and upward rolled with chlorosis giving fern leaf appearance
+Abiotic factors: Alkaline soils, High P, 
+
+--------------------------------------------------
+
+Disease: Verticillium wilt
+Wilt: Wilt with vascular discolouration
+Stems: Brown vascular discolouration more severe on lower parts
+With chlorosis: General chlorosis
+Normal Tuber shape surface unblemished: Stem end browning and netlike at stolon attachment
+Normal tuber shape surface blemished without actve rot: Stolon attachment discoloured, Eyes discoloured principally at tuber tip
+
+--------------------------------------------------
+
+Disease: Charcoal rot
+Wilt: Chlorosis  and sudden wilt of plants and early death
+Normal tuber shape surface blemished without actve rot: Enlarged lenticels, Stolon attachment discoloured, Eyes discoloured anywhere
+Tubers with active rot: Active rot watery on exposure to air shades of pink brown to black, light gray cavities with mycelium and black sclerotia at later stages of disease development
+Abiotic factors: Temperatures above 32 C
+
+--------------------------------------------------
+
+Disease: Pink rot
+Wilt: Wilting at any time but generally late in the season
+Stems: Stem lesions may extend upto basal leaves with water soaked and light brown vascular discolourationat advancing margin. Necrotic stems and roots are brown to black
+With chlorosis: Leaves become Chlorotic, wilt dry up and abscise starting from stem base
+Normal Tuber shape surface unblemished: Vascular discolouration, soft texture, ooze when squeezed
+Normal tuber shape surface blemished without actve rot: Underlying tissue brown to black
+Tubers with active rot: Active rot watery on exposure to air shades of pink brown to black, advancing margin clearly delimied by black line
+Stolons: Necrosis
+Roots: Brown to black necrosis
+
+--------------------------------------------------
+
+Disease: Ring rot
+Wilt: Wilting of leaves and stems after mid season
+Deformed: rosette with dwarfing
+With chlorosis:  lower leaves pale green slightly rolled at the margins and first to wilt leading to Interveinal chlorosis of
+Normal tuber shape surface blemished without actve rot: Stolon attachment discoloured
+Tubers with active rot: Vascular tissue discoloured reddish brown to black and milky white exudate is observed when the cut tubers are squeezed
+
+--------------------------------------------------
+
+Disease: Stem Rot
+Wilt: Plants are wilted
+Stems: White fan like mycelial growth radiates over the soil surface and numerous round tan sclerotia form in the older mycelia at the stem base and soil surface.
+With chlorosis: Leaves appear chlorotic
+Abiotic factors: High temperature 28-30 C, high humidity
+
+--------------------------------------------------
+
+Disease: Photochemical oxidant air pollution
+Bronzing: General or of old leaves
+Necrosis: Defoliation from bottom of the plant toward top of the plant
+Chlorosis absent to mild: Bronzed on upper surface and margins, Plants are chlorotic premature leaf death from bottom upward
+
+--------------------------------------------------
+
+Disease: N def
+Upright growth: Chlorotic slow growing erect, having small erect pale green leaves. Lower leaves are mostly affected
+Chlorosis absent to mild: Necrotic lesions speckling on lower leaves and also on upper leaves
+
+--------------------------------------------------
+
+Disease: Boron def
+Upright growth: Bushy appearance
+Deformed: Growing points die, lateral buds active, shortened internodes and bushy appearance
+Chlorosis absent to mild: Stiff papery texture, pale colour and upward rolling Cupped lower leaves or throughout the plant, chlorosis absent to mild
+Normal tuber shape surface blemished without actve rot: Stolon attachment discoloured, Small tubers with skin cracked particularly at stolon end, Brown vascular discolouration in tubers
+Roots: Short, thick and stunted
+Abiotic factors: Sandy soils overlimed soils
+
+--------------------------------------------------
+
+Disease: Early blight
+Necrosis: defoliation from bottom of the plant toward top of the plant
+Stems: Small brown to black necrotic lesions on stem
+With chlorosis: Small spots, dry and papery in texture in lower and older leaves. The spots expand becoming brown to black circular to ovoid lesions often appearing to have concentric rings giving it a target boar like appearance. The tissue around the lesions is often chlorotic. As the disease advances the entire leaves become chlorotic and then nerotic and the leaves dry but do not  abscise.
+Normal tuber shape surface blemished without actve rot: Dark sunken circular to irregular shaped lesions accompanied by raised border of purplish to gun metal colour. The underlying tissue is dry leathery to corky and usually brown.
+Abiotic factors: Alternating wet and dry weather, prolonged period of dew, poor nutrition or other stresses temperature range 24-29 C.
+
+--------------------------------------------------
+
+Disease: Chemical injury
+Deformed: Spindly, crinkled leaves
+Normal tuber shape surface blemished without actve rot: Stolon attachment discoloured, necrotic lesions often in bands, scab like
+
+--------------------------------------------------
+
+Disease: Ca def
+Deformed: Spindly with Rosette appearance at the tip
+With chlorosis: crinkled leaflets with Chlorotic or necrotic margins
+Normal Tuber shape surface unblemished: Brown necrosis in vascular ring near the stolon attachments, tubers may be small
+Seed Tubers: Sprouts become necrotic just below tip, seed tubers are hard little tubers may be present
+Abiotic factors: Sandy soil, pH <5.0, High Mn or Al,
+
+--------------------------------------------------
+
+Disease: Common scab
+Stems: Brown lesions extending from seed tuber, pith dark and cortical decay
+Normal tuber shape surface blemished without actve rot: Tan brown to black lesions whih are normally circular. Lesions may be superficial cork like or pitted. Pitted lesions are dark bown to almost black. Tissue under lesion straw coloured and somewhat translucent.
+
+--------------------------------------------------
+
+Disease: Late blight
+Stems: Extensive brown to black necrosis
+Chlorosis absent to mild: Necrotic lesions without concentric zonation black when wet and brown when dry with or without sparse white sporulation possibly yellow halo
+Normal tuber shape surface blemished without actve rot: Exterior of infected tubers show irregular small to large slightly depressed areas of brown to purplish skin. The boundary line between diseased and healthy tissue is not clearly defined
+Abiotic factors: Temp, RH
+
+--------------------------------------------------
+
+Disease: Wart
+Stems: Warty outgrowth or tumourous Galls at the base of the stem. Above ground galls may appear green to brown
+Normal Tuber shape surface unblemished: Below ground galls appear on stem bases, stolons and yes of tubers. Subterranean galls are white to brown and become black due to decay
+Stolons: Galls on tips
+Abiotic factors: Cool temperatures with an average of 18 C, about 160 days of winters with temperatures < 5 C and annual precipitation of 70 cm favour the disease
+
+--------------------------------------------------
+
+Disease: Mn def
+With chlorosis: Upper leaves light green Interveinal chlorosis later turns yellow to white, lower leaves not affected, leaves near shoot tip roll upward, in severe cases brown necrotic spots develop along the veins of younger leaves
+Abiotic factors: Calcareous or excessively limed soils with high pH
+
+--------------------------------------------------
+
+Disease: Mosaic Viruses
+Chlorosis absent to mild: Mild to severe rugosity
+
+--------------------------------------------------
+
+Disease: Phoma leaf spot
+Chlorosis absent to mild: Round brown necrotic lesions may have concentric rings like that in early blight but the spots are not sunken.
+
+--------------------------------------------------
+
+Disease: Hollow heart
+Normal Tuber shape surface unblemished: Central tissue appears water soaked or translucent followed by formation of one cavity at the centre of the tuber, cavities are lens or star shaped and angular at the corners, Centre hollow or cracked
+Abiotic factors: Cultural practices favouring rapid tuber enlargement, moisture stress followed by conditions favouring rapid growth, marginal K deficiency
+
+--------------------------------------------------
+
+Disease: Lightning injury
+Deformed: Soon after lightning tops wilt and stems collapse. Leaves may remain green and turgid. Affected portions are soft water soaked and discolourd black to brown. Tissues dry and become chocolate brown to tan
+Stems: Black lesions extending from seed tuber, pith dark and cortical decay, brown vascular discolouration
+With chlorosis: Upward rolling severe at plant tip, chlorosis or red at bases of tip leaves, may be accompanied by aerial tubers
+Normal tuber shape surface blemished without actve rot: Stolon attachment discoloured
+Tubers with active rot: Vascular tissue discoloured reddish brown to black
+
+--------------------------------------------------
+
+Disease: Low temperature foliage injury
+With chlorosis: Irregular distortion of leaflets, chloosis in diffused areas, Frozen leaves rapidly wilt collapse and when thawed become water soaked, They turn black when damp and brown when dry
+Abiotic factors: Temperatures at or near 0 C
+
+--------------------------------------------------

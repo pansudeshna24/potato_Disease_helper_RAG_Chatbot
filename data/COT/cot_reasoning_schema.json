@@ -1,0 +1,215 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aloo-sahayak.local/schemas/cot-reasoning-schema.json",
+  "title": "COT Reasoning Tree Schema",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "generated_at_utc",
+    "source_files",
+    "decision_tree",
+    "disease_profiles",
+    "question_bank"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "generated_at_utc": {
+      "type": "string"
+    },
+    "source_files": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "decision_tree": {
+      "type": "object",
+      "required": [
+        "sections",
+        "pest_confirmatory"
+      ],
+      "properties": {
+        "sections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "section_id",
+              "section_title",
+              "nodes"
+            ],
+            "properties": {
+              "section_id": {
+                "type": "string"
+              },
+              "section_title": {
+                "type": "string"
+              },
+              "start_row": {
+                "type": "integer"
+              },
+              "end_row": {
+                "type": "integer"
+              },
+              "headers": {
+                "type": "object"
+              },
+              "nodes": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": [
+                    "row",
+                    "symptoms",
+                    "yes_no_questions"
+                  ],
+                  "properties": {
+                    "row": {
+                      "type": "integer"
+                    },
+                    "candidate_group": {
+                      "type": "string"
+                    },
+                    "disease_serial": {
+                      "type": "string"
+                    },
+                    "disease_name": {
+                      "type": "string"
+                    },
+                    "feature_codes": {
+                      "type": "object"
+                    },
+                    "symptoms": {
+                      "type": "object"
+                    },
+                    "yes_no_questions": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "dimension",
+                          "question"
+                        ],
+                        "properties": {
+                          "dimension": {
+                            "type": "string"
+                          },
+                          "question": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "pest_confirmatory": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "confirmatory_question"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "row": {
+                "type": "integer"
+              },
+              "confirmatory_question": {
+                "type": "string"
+              },
+              "next_step": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "disease_profiles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "disease_id",
+          "disease_name",
+          "attributes"
+        ],
+        "properties": {
+          "disease_id": {
+            "type": "string"
+          },
+          "disease_name": {
+            "type": "string"
+          },
+          "normalized_name": {
+            "type": "string"
+          },
+          "attributes": {
+            "type": "object"
+          },
+          "raw_row": {
+            "type": "integer"
+          },
+          "column_labels": {
+            "type": "object"
+          },
+          "symptom_text_features": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "question_bank": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "question_id",
+          "dimension",
+          "question",
+          "expected_answer_type",
+          "supports_disease_ids"
+        ],
+        "properties": {
+          "question_id": {
+            "type": "string"
+          },
+          "dimension": {
+            "type": "string"
+          },
+          "source_field": {
+            "type": "string"
+          },
+          "question": {
+            "type": "string"
+          },
+          "expected_answer_type": {
+            "type": "string"
+          },
+          "evidence_text": {
+            "type": "string"
+          },
+          "supports_disease_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "example_disease": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

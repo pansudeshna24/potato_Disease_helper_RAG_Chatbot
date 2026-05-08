@@ -1,0 +1,163 @@
+{
+  "phase": "phase05_calibration",
+  "generated_at_utc": "2026-04-06T15:07:07.091492+00:00",
+  "cases_path": "data/COT/phase5_calibration_cases.json",
+  "cases_count": 8,
+  "trials_count": 128,
+  "best_trial": {
+    "trial_id": 95,
+    "weight_multipliers": {
+      "wilting": 1.15,
+      "stems": 1.0,
+      "leaves": 1.0,
+      "tubers": 1.2,
+      "roots": 1.0
+    },
+    "tuned_weights": {
+      "general_appearance": 0.132701,
+      "wilting": 0.196209,
+      "growth_habit": 0.113744,
+      "stems": 0.132701,
+      "leaves": 0.132701,
+      "tubers": 0.159242,
+      "roots": 0.094787,
+      "period": 0.037915
+    },
+    "scoring_config": {
+      "match_gain": 1.15,
+      "conflict_penalty": 1.25,
+      "weak_mismatch_penalty": -0.3,
+      "free_text_base": 0.15,
+      "free_text_lexical_gain": 0.35,
+      "elimination_conflict_threshold": 2
+    },
+    "metrics": {
+      "top1_accuracy": 0.875,
+      "top3_recall": 1.0,
+      "avg_score_spread": 0.1326,
+      "objective": 0.86913
+    }
+  },
+  "top_trials": [
+    {
+      "trial_id": 95,
+      "metrics": {
+        "top1_accuracy": 0.875,
+        "top3_recall": 1.0,
+        "avg_score_spread": 0.1326,
+        "objective": 0.86913
+      },
+      "weight_multipliers": {
+        "wilting": 1.15,
+        "stems": 1.0,
+        "leaves": 1.0,
+        "tubers": 1.2,
+        "roots": 1.0
+      },
+      "scoring_config": {
+        "match_gain": 1.15,
+        "conflict_penalty": 1.25,
+        "weak_mismatch_penalty": -0.3,
+        "free_text_base": 0.15,
+        "free_text_lexical_gain": 0.35,
+        "elimination_conflict_threshold": 2
+      }
+    },
+    {
+      "trial_id": 96,
+      "metrics": {
+        "top1_accuracy": 0.875,
+        "top3_recall": 1.0,
+        "avg_score_spread": 0.1326,
+        "objective": 0.86913
+      },
+      "weight_multipliers": {
+        "wilting": 1.15,
+        "stems": 1.0,
+        "leaves": 1.0,
+        "tubers": 1.2,
+        "roots": 1.0
+      },
+      "scoring_config": {
+        "match_gain": 1.15,
+        "conflict_penalty": 1.25,
+        "weak_mismatch_penalty": -0.3,
+        "free_text_base": 0.15,
+        "free_text_lexical_gain": 0.35,
+        "elimination_conflict_threshold": 3
+      }
+    },
+    {
+      "trial_id": 91,
+      "metrics": {
+        "top1_accuracy": 0.875,
+        "top3_recall": 1.0,
+        "avg_score_spread": 0.1315,
+        "objective": 0.869074
+      },
+      "weight_multipliers": {
+        "wilting": 1.15,
+        "stems": 1.0,
+        "leaves": 1.0,
+        "tubers": 1.2,
+        "roots": 1.0
+      },
+      "scoring_config": {
+        "match_gain": 1.15,
+        "conflict_penalty": 1.1,
+        "weak_mismatch_penalty": -0.3,
+        "free_text_base": 0.15,
+        "free_text_lexical_gain": 0.35,
+        "elimination_conflict_threshold": 2
+      }
+    },
+    {
+      "trial_id": 92,
+      "metrics": {
+        "top1_accuracy": 0.875,
+        "top3_recall": 1.0,
+        "avg_score_spread": 0.1315,
+        "objective": 0.869074
+      },
+      "weight_multipliers": {
+        "wilting": 1.15,
+        "stems": 1.0,
+        "leaves": 1.0,
+        "tubers": 1.2,
+        "roots": 1.0
+      },
+      "scoring_config": {
+        "match_gain": 1.15,
+        "conflict_penalty": 1.1,
+        "weak_mismatch_penalty": -0.3,
+        "free_text_base": 0.15,
+        "free_text_lexical_gain": 0.35,
+        "elimination_conflict_threshold": 3
+      }
+    },
+    {
+      "trial_id": 123,
+      "metrics": {
+        "top1_accuracy": 0.875,
+        "top3_recall": 1.0,
+        "avg_score_spread": 0.1306,
+        "objective": 0.86903
+      },
+      "weight_multipliers": {
+        "wilting": 1.15,
+        "stems": 1.2,
+        "leaves": 1.0,
+        "tubers": 1.2,
+        "roots": 1.0
+      },
+      "scoring_config": {
+        "match_gain": 1.15,
+        "conflict_penalty": 1.1,
+        "weak_mismatch_penalty": -0.3,
+        "free_text_base": 0.15,
+        "free_text_lexical_gain": 0.35,
+        "elimination_conflict_threshold": 2
+      }
+    }
+  ]
+}

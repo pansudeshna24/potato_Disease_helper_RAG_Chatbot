@@ -1,0 +1,114 @@
+[
+  {
+    "case_id": "brown_rot_classic",
+    "expected_disease_id": "4",
+    "answers": {
+      "general_appearance": "stunted plants in patches",
+      "wilting": "wilting on one side of plant",
+      "growth_habit": "upright",
+      "stems": "vascular discoloration with bacterial ooze",
+      "leaves": "chlorosis",
+      "tubers": "enlarged lenticels and stolon attachment discoloured",
+      "roots": "normal",
+      "period": "mid season"
+    }
+  },
+  {
+    "case_id": "blackleg_classic",
+    "expected_disease_id": "5",
+    "answers": {
+      "general_appearance": "stunted with poor vigor",
+      "wilting": "leaflets wilt and later full plant wilting",
+      "growth_habit": "erect",
+      "stems": "inky black stem from seed tuber",
+      "leaves": "chlorosis and upward rolling",
+      "tubers": "soft rot near stolon end",
+      "roots": "poor development",
+      "period": "early stage"
+    }
+  },
+  {
+    "case_id": "early_blight_classic",
+    "expected_disease_id": "21",
+    "answers": {
+      "general_appearance": "normal growth",
+      "wilting": "no wilting",
+      "growth_habit": "normal",
+      "stems": "small brown black necrotic lesions on stem",
+      "leaves": "necrotic spots with concentric rings and chlorosis",
+      "tubers": "dark sunken lesions",
+      "roots": "normal",
+      "period": "mid season"
+    }
+  },
+  {
+    "case_id": "late_blight_classic",
+    "expected_disease_id": "25",
+    "answers": {
+      "general_appearance": "normal growth",
+      "wilting": "plants are wilted",
+      "growth_habit": "normal",
+      "stems": "extensive brown to black necrosis",
+      "leaves": "black lesions and chlorosis",
+      "tubers": "brown to purplish depressed skin areas",
+      "roots": "normal",
+      "period": "cool humid period"
+    }
+  },
+  {
+    "case_id": "pink_rot_classic",
+    "expected_disease_id": "15",
+    "answers": {
+      "general_appearance": "normal growth",
+      "wilting": "late season wilting",
+      "growth_habit": "normal",
+      "stems": "water soaked stem lesions with vascular discoloration",
+      "leaves": "chlorosis",
+      "tubers": "active watery rot and pink to brown discoloration",
+      "roots": "brown black necrosis",
+      "period": "late season"
+    }
+  },
+  {
+    "case_id": "ring_rot_classic",
+    "expected_disease_id": "16",
+    "answers": {
+      "general_appearance": "normal growth",
+      "wilting": "wilting after mid season",
+      "growth_habit": "rosette dwarfing",
+      "stems": "normal",
+      "leaves": "interveinal chlorosis",
+      "tubers": "vascular discoloration with milky ooze",
+      "roots": "normal",
+      "period": "mid season"
+    }
+  },
+  {
+    "case_id": "pcn_classic",
+    "expected_disease_id": "2",
+    "answers": {
+      "general_appearance": "stunted in localized patches",
+      "wilting": "wilting under drought stress",
+      "growth_habit": "normal",
+      "stems": "normal",
+      "leaves": "normal",
+      "tubers": "normal",
+      "roots": "root cysts and stunted roots",
+      "period": "mid season"
+    }
+  },
+  {
+    "case_id": "rkn_classic",
+    "expected_disease_id": "3",
+    "answers": {
+      "general_appearance": "stunted in localized patches",
+      "wilting": "wilting under drought stress",
+      "growth_habit": "normal",
+      "stems": "normal",
+      "leaves": "normal",
+      "tubers": "warty tubers with purplish brown lesions",
+      "roots": "root galls",
+      "period": "mid season"
+    }
+  }
+]
