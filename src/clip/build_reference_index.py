@@ -228,6 +228,8 @@ def build_reference_index():
                         keepdim=True
                     )
 
+
+
                 embedding = (
                     features.squeeze(0)
                     .cpu()
