@@ -528,52 +528,215 @@ if st.session_state.active_chat_id:
                     is_img_analysis = isinstance(a_meta, dict) and a_meta.get('image_analysis')
 
                     if is_img_analysis:
-                        # Render rich CLIP analysis panel within chat message
+
                         with st.chat_message("assistant"):
-                            st.markdown("**🔬 Disease Analysis Results**")
+
+                            st.markdown("## 🔬 Disease Analysis Results")
+
                             conf = a_meta.get('confidence', 0)
                             pred = a_meta.get('prediction', 'Unknown')
-                            conf_emoji = "🟢" if conf >= 0.5 else ("🟡" if conf >= 0.3 else "🔴")
-                            st.markdown(f"**Predicted:** {pred} {conf_emoji} ({conf:.0%} confidence)")
 
-                            with st.expander("🏥 All Candidate Predictions", expanded=False):
-                                for c in a_meta.get('top_candidates', []):
-                                    pct = c.get('score', 0) * 100
-                                    name = c.get('display_name', c.get('disease', 'Unknown'))
-                                    st.markdown(f"- **{name}**: {pct:.1f}%")
+                            # ==========================================
+                            # FIX CONFIDENCE VALUE
+                            # ==========================================
 
-                            ref_imgs = a_meta.get('matched_ref_images', [])
+                            # Handle both decimal (0.74) and percent (74)
+                            if conf > 1:
+                                confidence_percent = round(conf)
+                                confidence_decimal = conf / 100
+                            else:
+                                confidence_percent = round(conf * 100)
+                                confidence_decimal = conf
+
+                            # ==========================================
+                            # CONFIDENCE LABELS
+                            # ==========================================
+
+                            if confidence_decimal >= 0.75:
+                                conf_emoji = "🟢"
+                                confidence_label = "High Confidence"
+
+                            elif confidence_decimal >= 0.45:
+                                conf_emoji = "🟡"
+                                confidence_label = "Moderate Confidence"
+
+                            else:
+                                conf_emoji = "🔴"
+                                confidence_label = "Low Confidence"
+
+                            # ==========================================
+                            # MAIN PREDICTION
+                            # ==========================================
+
+                            st.success(
+                                f"🩺 Predicted Disease: {pred}"
+                            )
+
+                            st.progress(
+                                min(confidence_decimal, 1.0)
+                            )
+
+                            st.markdown(
+                                f"""
+                    ### {conf_emoji} Confidence Score: `{confidence_percent}%`
+
+                    **Assessment:** {confidence_label}
+                    """
+                            )
+
+                            # ==========================================
+                            # ALL CANDIDATE PREDICTIONS
+                            # ==========================================
+
+                            with st.expander(
+                                "🏥 All Candidate Predictions",
+                                expanded=False
+                            ):
+
+                                for idx, c in enumerate(
+                                    a_meta.get('top_candidates', []),
+                                    start=1
+                                ):
+
+                                    score = c.get('score', 0)
+
+                                    if score > 1:
+                                        pct = round(score)
+                                        score_decimal = score / 100
+                                    else:
+                                        pct = round(score * 100)
+                                        score_decimal = score
+
+                                    name = c.get(
+                                        'display_name',
+                                        c.get('disease', 'Unknown')
+                                    )
+
+                                    st.markdown(
+                                        f"""
+                    **{idx}. {name}**
+
+                    Confidence: `{pct}%`
+                    """
+                                    )
+
+                                    st.progress(
+                                        min(score_decimal, 1.0)
+                                    )
+
+                                    st.markdown("---")
+
+                            # ==========================================
+                            # REFERENCE IMAGES
+                            # ==========================================
+
+                            ref_imgs = a_meta.get(
+                                'matched_ref_images',
+                                []
+                            )
+
                             if ref_imgs:
-                                with st.expander(f"📸 Similar Reference Images ({len(ref_imgs)} found)", expanded=False):
+
+                                with st.expander(
+                                    f"📸 Similar Reference Images ({len(ref_imgs)} found)",
+                                    expanded=False
+                                ):
+
                                     for ri in ref_imgs:
-                                        img_path = ri.get('image_path', '')
+
+                                        img_path = ri.get(
+                                            'image_path',
+                                            ''
+                                        )
+
+                                        similarity = ri.get(
+                                            'similarity_score',
+                                            0
+                                        )
+
+                                        disease_name = ri.get(
+                                            'disease',
+                                            'Unknown'
+                                        )
+
                                         if os.path.exists(img_path):
+
                                             st.image(
                                                 img_path,
-                                                caption=f"{ri.get('disease', 'Unknown')} — similarity: {ri.get('similarity_score', 0):.2f}",
+                                                caption=f"{disease_name} • Similarity: {similarity:.2f}",
                                                 use_container_width=True
                                             )
-                                        else:
-                                            st.caption(f"🖼️ {ri.get('disease', 'Unknown')} (similarity: {ri.get('similarity_score', 0):.2f})")
 
-                            st.markdown("**📖 Detailed Explanation**")
+                                        else:
+
+                                            st.caption(
+                                                f"🖼️ {disease_name} • Similarity: {similarity:.2f}"
+                                            )
+
+                            # ==========================================
+                            # DETAILED EXPLANATION
+                            # ==========================================
+
+                            st.markdown(
+                                "## 📖 Detailed Explanation"
+                            )
+
                             st.markdown(display_content)
 
-                            # Sources
-                            source_documents = a_meta.get('source_documents', [])
+                            # ==========================================
+                            # SOURCES
+                            # ==========================================
+
+                            source_documents = a_meta.get(
+                                'source_documents',
+                                []
+                            )
+
                             if source_documents:
-                                with st.expander(f"📚 View Sources ({len(source_documents)} found)"):
-                                    for i, doc in enumerate(source_documents):
-                                        source_name = doc.get('source') or (doc.get('metadata', {}).get('source') if doc.get('metadata') else None) or f"Source {i+1}"
-                                        st.markdown(f"**Source {i+1}:** {source_name}")
-                                        content_preview = (doc.get('page_content') or '')[:300].replace('\n', ' ')
-                                        if len(doc.get('page_content', '')) > 300:
+
+                                with st.expander(
+                                    f"📚 View Sources ({len(source_documents)} found)"
+                                ):
+
+                                    for i, doc in enumerate(
+                                        source_documents
+                                    ):
+
+                                        source_name = (
+                                            doc.get('source')
+                                            or (
+                                                doc.get('metadata', {}).get('source')
+                                                if doc.get('metadata')
+                                                else None
+                                            )
+                                            or f"Source {i+1}"
+                                        )
+
+                                        st.markdown(
+                                            f"### 📄 Source {i+1}: {source_name}"
+                                        )
+
+                                        content_preview = (
+                                            doc.get('page_content') or ''
+                                        )[:300].replace('\n', ' ')
+
+                                        if len(
+                                            doc.get(
+                                                'page_content',
+                                                ''
+                                            )
+                                        ) > 300:
+
                                             content_preview += "..."
-                                        st.markdown(f"> {content_preview}")
+
+                                        st.info(content_preview)
+
                                         if i < len(source_documents) - 1:
                                             st.divider()
 
-                            st.caption(f"💡 Ask follow-up questions below. • {timestamp}")
+                            st.caption(
+                                f"💡 Ask follow-up questions below • {timestamp}"
+                            )
                     else:
                         st.markdown(f"""
                         <div class="chat-message assistant-message">
