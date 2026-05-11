@@ -1,194 +1,352 @@
 """
 Reference Image Index Builder
 
-Scans reference_images/{Category}/ folders, encodes each image with CLIP,
+Scans data/image_reference_index/{Category}/ folders,
+encodes each image with CLIP,
 and builds a FAISS index for fast image-to-image similarity search.
 
 Usage:
     python -m src.clip.build_reference_index
 
-This runs 100% locally — zero API cost. Takes ~1-2 minutes for ~200 images.
-
 Output:
-    reference_images/clip_reference_index.faiss
-    reference_images/clip_reference_metadata.json
+    data/image_reference_index/clip_reference_index.faiss
+    data/image_reference_index/clip_reference_metadata.json
 """
 
 import os
 import sys
 import json
 import numpy as np
-from typing import Dict, List
+from typing import Dict
 from PIL import Image
 
+# ============================================================
 # Ensure project root is on path
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+# ============================================================
+
+project_root = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..", "..")
+)
+
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
-# ──────────────────────────────────────────────────────────────────────
+# ============================================================
 # Configuration
-# ──────────────────────────────────────────────────────────────────────
+# ============================================================
 
-REFERENCE_IMAGES_DIR = os.path.join(project_root, "reference_images")
+REFERENCE_IMAGES_DIR = os.path.join(
+    project_root,
+    "data",
+    "image_reference_index"
+)
+
 CLIP_MODEL_NAME = "openai/clip-vit-base-patch32"
-VALID_EXTENSIONS = {'.jpg', '.jpeg', '.png', '.bmp', '.tiff', '.tif', '.webp'}
-MIN_IMAGE_SIZE = 50  # Skip images smaller than 50x50
 
+VALID_EXTENSIONS = {
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".bmp",
+    ".tiff",
+    ".tif",
+    ".webp"
+}
+
+MIN_IMAGE_SIZE = 50
+
+INDEX_OUTPUT_PATH = os.path.join(
+    REFERENCE_IMAGES_DIR,
+    "clip_reference_index.faiss"
+)
+
+METADATA_OUTPUT_PATH = os.path.join(
+    REFERENCE_IMAGES_DIR,
+    "clip_reference_metadata.json"
+)
+
+# ============================================================
+# Main Builder Function
+# ============================================================
 
 def build_reference_index():
-    """
-    Main function: scan reference folders → encode with CLIP → build FAISS.
-    """
+
     import torch
     import faiss
     from transformers import CLIPProcessor, CLIPModel
 
-    print("=" * 60)
-    print("  CLIP Reference Image Index Builder")
-    print("  (runs locally — zero API cost)")
-    print("=" * 60)
+    print("\n" + "=" * 70)
+    print("      CLIP REFERENCE IMAGE INDEX BUILDER")
+    print("=" * 70)
 
-    # 1. Scan reference folders
-    if not os.path.isdir(REFERENCE_IMAGES_DIR):
-        print(f"\nERROR: '{REFERENCE_IMAGES_DIR}' not found.")
-        print("Create the folder and add disease category subfolders with images.")
+    print(f"\nReference image folder:")
+    print(f"{REFERENCE_IMAGES_DIR}")
+
+    # ========================================================
+    # Validate dataset folder
+    # ========================================================
+
+    if not os.path.exists(REFERENCE_IMAGES_DIR):
+        print("\nERROR:")
+        print(f"Folder not found:\n{REFERENCE_IMAGES_DIR}")
         return
 
+    # ========================================================
+    # Find disease categories
+    # ========================================================
+
     categories = []
+
     for item in sorted(os.listdir(REFERENCE_IMAGES_DIR)):
+
         item_path = os.path.join(REFERENCE_IMAGES_DIR, item)
-        if os.path.isdir(item_path) and not item.startswith('.'):
+
+        # Skip hidden/system files
+        if item.startswith("."):
+            continue
+
+        # Skip generated files
+        if item.endswith(".faiss") or item.endswith(".json"):
+            continue
+
+        if os.path.isdir(item_path):
             categories.append(item)
 
     if not categories:
-        print(f"\nERROR: No category folders found in {REFERENCE_IMAGES_DIR}")
-        print("Create folders like Late_Blight/, Early_Blight/, etc. and add images.")
+        print("\nERROR: No disease category folders found.")
         return
 
-    print(f"\nFound {len(categories)} disease categories:")
-    total_images = 0
-    category_counts = {}
+    print(f"\nFound {len(categories)} disease categories:\n")
 
-    for cat in categories:
-        cat_path = os.path.join(REFERENCE_IMAGES_DIR, cat)
-        images = [
-            f for f in os.listdir(cat_path)
+    total_images = 0
+
+    for category in categories:
+
+        category_path = os.path.join(
+            REFERENCE_IMAGES_DIR,
+            category
+        )
+
+        image_count = len([
+            f for f in os.listdir(category_path)
             if os.path.splitext(f)[1].lower() in VALID_EXTENSIONS
-        ]
-        category_counts[cat] = len(images)
-        total_images += len(images)
-        status = "✓" if len(images) >= 5 else "⚠ (low count)"
-        print(f"  {cat}: {len(images)} images {status}")
+        ])
+
+        total_images += image_count
+
+        status = "✓"
+
+        if image_count < 5:
+            status = "⚠ LOW IMAGE COUNT"
+
+        print(f"{category:<30} {image_count:>4} images   {status}")
+
+    print(f"\nTotal Images: {total_images}")
 
     if total_images == 0:
-        print("\nERROR: No images found! Add .jpg/.png images to the category folders.")
+        print("\nERROR: No valid images found.")
         return
 
-    print(f"\nTotal: {total_images} images across {len(categories)} categories")
+    # ========================================================
+    # Load CLIP
+    # ========================================================
 
-    # 2. Load CLIP model
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    print(f"\nLoading CLIP model ({CLIP_MODEL_NAME}) on {device}...")
-    model = CLIPModel.from_pretrained(CLIP_MODEL_NAME).to(device)
-    processor = CLIPProcessor.from_pretrained(CLIP_MODEL_NAME)
-    model.eval()
-    print("Model loaded.")
 
-    # 3. Encode all images
-    print(f"\nEncoding {total_images} images...")
+    print(f"\nLoading CLIP model on {device}...")
+
+    model = CLIPModel.from_pretrained(CLIP_MODEL_NAME).to(device)
+
+    processor = CLIPProcessor.from_pretrained(CLIP_MODEL_NAME)
+
+    model.eval()
+
+    print("CLIP model loaded successfully.")
+
+    # ========================================================
+    # Encode Images
+    # ========================================================
+
     embeddings = []
     metadata = []
-    skipped = 0
+
     processed = 0
+    skipped = 0
 
-    for cat in categories:
-        cat_path = os.path.join(REFERENCE_IMAGES_DIR, cat)
-        image_files = [
-            f for f in sorted(os.listdir(cat_path))
+    print("\nEncoding images...\n")
+
+    for category in categories:
+
+        category_path = os.path.join(
+            REFERENCE_IMAGES_DIR,
+            category
+        )
+
+        image_files = sorted([
+            f for f in os.listdir(category_path)
             if os.path.splitext(f)[1].lower() in VALID_EXTENSIONS
-        ]
+        ])
 
-        for img_file in image_files:
-            img_path = os.path.join(cat_path, img_file)
+        for image_file in image_files:
+
+            image_path = os.path.join(
+                category_path,
+                image_file
+            )
 
             try:
-                image = Image.open(img_path).convert("RGB")
 
-                # Skip tiny images
-                if image.size[0] < MIN_IMAGE_SIZE or image.size[1] < MIN_IMAGE_SIZE:
-                    print(f"  Skipping {img_file} (too small: {image.size})")
+                image = Image.open(image_path).convert("RGB")
+
+                # Skip tiny/corrupt images
+                if (
+                    image.size[0] < MIN_IMAGE_SIZE or
+                    image.size[1] < MIN_IMAGE_SIZE
+                ):
+                    print(f"Skipping tiny image: {image_file}")
                     skipped += 1
                     continue
 
-                # Encode with CLIP
-                inputs = processor(images=image, return_tensors="pt")
-                inputs = {k: v.to(device) for k, v in inputs.items()}
+                # Prepare CLIP input
+                inputs = processor(
+                    images=image,
+                    return_tensors="pt"
+                )
 
+                inputs = {
+                    k: v.to(device)
+                    for k, v in inputs.items()
+                }
+
+                # Generate embedding
                 with torch.no_grad():
-                    features = model.get_image_features(**inputs)
-                    features = features / features.norm(dim=-1, keepdim=True)
 
-                embedding = features.squeeze(0).cpu().numpy().astype(np.float32)
+                    features = model.get_image_features(**inputs)
+
+                    features = features / features.norm(
+                        dim=-1,
+                        keepdim=True
+                    )
+
+                embedding = (
+                    features.squeeze(0)
+                    .cpu()
+                    .numpy()
+                    .astype(np.float32)
+                )
+
                 embeddings.append(embedding)
 
                 metadata.append({
-                    "image_path": img_path,
-                    "image_name": img_file,
-                    "disease": cat,
+                    "image_path": image_path,
+                    "image_name": image_file,
+                    "disease": category
                 })
 
                 processed += 1
+
                 if processed % 25 == 0:
-                    print(f"  Processed {processed}/{total_images}...")
+                    print(f"Processed {processed}/{total_images}")
 
             except Exception as e:
-                print(f"  ERROR processing {img_file}: {e}")
+
+                print(f"\nERROR processing:")
+                print(image_path)
+                print(str(e))
+
                 skipped += 1
 
-    print(f"\nEncoded {len(embeddings)} images (skipped {skipped})")
+    # ========================================================
+    # Final Validation
+    # ========================================================
 
-    if not embeddings:
-        print("ERROR: No valid images encoded!")
+    print(f"\nSuccessfully encoded: {len(embeddings)}")
+    print(f"Skipped images: {skipped}")
+
+    if len(embeddings) == 0:
+        print("\nERROR: No embeddings generated.")
         return
 
-    # 4. Build FAISS index (inner product = cosine sim for L2-normalized vectors)
-    embedding_matrix = np.stack(embeddings).astype(np.float32)
-    embed_dim = embedding_matrix.shape[1]
+    # ========================================================
+    # Build FAISS Index
+    # ========================================================
 
-    index = faiss.IndexFlatIP(embed_dim)
+    print("\nBuilding FAISS index...")
+
+    embedding_matrix = np.stack(embeddings).astype(np.float32)
+
+    embedding_dim = embedding_matrix.shape[1]
+
+    index = faiss.IndexFlatIP(embedding_dim)
+
     index.add(embedding_matrix)
 
-    print(f"\nFAISS index built: {index.ntotal} vectors, dim={embed_dim}")
+    print(
+        f"FAISS index created with "
+        f"{index.ntotal} vectors"
+    )
 
-    # 5. Save
-    faiss_path = os.path.join(REFERENCE_IMAGES_DIR, "clip_reference_index.faiss")
-    meta_path = os.path.join(REFERENCE_IMAGES_DIR, "clip_reference_metadata.json")
+    # ========================================================
+    # Save Files
+    # ========================================================
 
-    faiss.write_index(index, faiss_path)
-    with open(meta_path, "w", encoding="utf-8") as f:
-        json.dump(metadata, f, indent=2, ensure_ascii=False)
+    print("\nSaving files...")
 
-    print(f"\nIndex saved: {faiss_path}")
-    print(f"Metadata saved: {meta_path}")
+    faiss.write_index(index, INDEX_OUTPUT_PATH)
 
-    # 6. Summary
-    print("\n" + "=" * 60)
-    print("  Category Distribution")
-    print("=" * 60)
+    with open(
+        METADATA_OUTPUT_PATH,
+        "w",
+        encoding="utf-8"
+    ) as f:
+
+        json.dump(
+            metadata,
+            f,
+            indent=2,
+            ensure_ascii=False
+        )
+
+    print("\nSUCCESSFULLY SAVED:")
+    print(f"\nFAISS INDEX:")
+    print(INDEX_OUTPUT_PATH)
+
+    print(f"\nMETADATA:")
+    print(METADATA_OUTPUT_PATH)
+
+    # ========================================================
+    # Distribution Summary
+    # ========================================================
+
+    print("\n" + "=" * 70)
+    print("CATEGORY DISTRIBUTION")
+    print("=" * 70)
 
     label_counts: Dict[str, int] = {}
-    for m in metadata:
-        d = m['disease']
-        label_counts[d] = label_counts.get(d, 0) + 1
 
-    for label, count in sorted(label_counts.items(), key=lambda x: x[1], reverse=True):
-        bar = "█" * count
-        print(f"  {label:30s} {count:3d}  {bar}")
+    for item in metadata:
 
-    print(f"\n✅ Reference index ready! ({index.ntotal} images)")
-    print("   You can now use image analysis in the app.")
+        disease = item["disease"]
 
+        label_counts[disease] = (
+            label_counts.get(disease, 0) + 1
+        )
+
+    for disease, count in sorted(
+        label_counts.items(),
+        key=lambda x: x[1],
+        reverse=True
+    ):
+
+        print(f"{disease:<30} {count:>4}")
+
+    print("\n" + "=" * 70)
+    print("REFERENCE IMAGE INDEX BUILD COMPLETE")
+    print("=" * 70)
+
+# ============================================================
+# Entry Point
+# ============================================================
 
 if __name__ == "__main__":
     build_reference_index()
