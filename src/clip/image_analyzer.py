@@ -475,22 +475,42 @@ class CLIPDiseaseAnalyzer:
             2
         )
 
+        
         # =====================================
-        # HYBRID DECISION
+        # FINAL DECISION
         # =====================================
+
+        # CNN is primary model
 
         final_prediction = cnn_prediction
 
         final_confidence = cnn_confidence
 
-        # Boost if both agree
+        # Only boost if both agree strongly
 
-        if clip_prediction.lower() in cnn_prediction.lower():
+        if (
+            clip_prediction.lower() in cnn_prediction.lower()
+            and clip_confidence > 70
+        ):
 
             final_confidence = min(
                 99,
-                cnn_confidence + 10
+                cnn_confidence + 5
             )
+
+        # Penalize disagreement
+
+        elif (
+            clip_prediction.lower()
+            not in cnn_prediction.lower()
+        ):
+
+            final_confidence = max(
+                35,
+                cnn_confidence - 10
+            )
+    
+
 
         # =====================================
         # LOW CONFIDENCE HANDLING
