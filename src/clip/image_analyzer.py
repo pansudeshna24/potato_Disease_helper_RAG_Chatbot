@@ -10,6 +10,8 @@ from PIL import Image
 import time
 
 from src.core.logging_utils import setup_logger, log_timing
+from src.cnn.cnn_classifier import CNNDiseaseClassifier
+
 
 logger = setup_logger('image_analyzer')
 
@@ -116,6 +118,16 @@ class CLIPDiseaseAnalyzer:
             if torch.cuda.is_available()
             else "cpu"
         )
+
+        # =====================================
+        # LOAD CNN CLASSIFIER
+        # =====================================
+
+        self.cnn_classifier = CNNDiseaseClassifier()
+
+        # =====================================
+        # LOAD CLIP MODEL
+        # =====================================
 
         self.model = CLIPModel.from_pretrained(
             CLIP_MODEL_NAME
@@ -428,79 +440,70 @@ class CLIPDiseaseAnalyzer:
     # MAIN ANALYSIS
     # =====================================================
 
-    def analyze_image(
-        self,
-        image: Image.Image
-    ):
+    def analyze_image(self, image):
 
-        results = self.zero_shot_classify(image)
+    # =====================================
+    # CNN PREDICTION
+    # =====================================
 
-        top = results[0]
+        cnn_result = self.cnn_classifier.predict(image)
 
-        confidence = float(
-            top["similarity"]
+        cnn_prediction = cnn_result["prediction"]
+        cnn_confidence = cnn_result["confidence"]
+
+        # =====================================
+        # CLIP RETRIEVAL
+        # =====================================
+
+        clip_results = self.zero_shot_classify(
+            image,
+            top_k=5
         )
 
-        confidence_percent = max(
-            0,
-            min(
-                100,
-                round(confidence * 100)
+        top_clip = clip_results[0]
+
+        clip_prediction = top_clip["display_name"]
+
+        clip_confidence = round(
+            top_clip["similarity"] * 100,
+            2
+        )
+
+        # =====================================
+        # HYBRID DECISION
+        # =====================================
+
+        final_prediction = cnn_prediction
+
+        final_confidence = cnn_confidence
+
+        # boost confidence if both agree
+        if clip_prediction.lower() in cnn_prediction.lower():
+
+            final_confidence = min(
+                99,
+                cnn_confidence + 10
             )
-        )
 
-        # =====================================================
-        # LOW CONFIDENCE HANDLING
-        # =====================================================
+        # uncertainty handling
+        if final_confidence < 45:
 
-        if confidence_percent < 55:
-
-            return {
-
-                "prediction": "Uncertain",
-
-                "display_name":
-                    "Uncertain Prediction",
-
-                "confidence":
-                    confidence_percent,
-
-                "all_candidates":
-                    results,
-
-                "rag_query": (
-                    "The uploaded potato image "
-                    "could not be classified "
-                    "confidently. "
-                    "Ask user for clearer image."
-                ),
-
-                "warning": (
-                    "Low confidence prediction. "
-                    "Please upload a clearer image."
-                )
-            }
+            final_prediction = "Uncertain"
 
         rag_query = (
             f"Potato plant appears affected by "
-            f"{top['display_name']}. "
+            f"{final_prediction}. "
             f"Provide symptoms, causes, and treatment."
         )
 
         return {
-
-            "prediction":
-                top["disease"],
-
-            "display_name":
-                top["display_name"],
-
-            "confidence":
-                confidence_percent,
-
-            "all_candidates":
-                results,
-
-            "rag_query":
-                rag_query,
+            "prediction": final_prediction,
+            "display_name": final_prediction,
+            "confidence": final_confidence,
+            "cnn_prediction": cnn_prediction,
+            "cnn_confidence": cnn_confidence,
+            "clip_prediction": clip_prediction,
+            "clip_confidence": clip_confidence,
+            "top_candidates": clip_results,
+            "rag_query": rag_query
         }
