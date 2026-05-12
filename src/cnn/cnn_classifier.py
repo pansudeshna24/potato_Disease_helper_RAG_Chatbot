@@ -1,61 +1,62 @@
-import torch
-import torch.nn.functional as F
-from torchvision import transforms
-from torchvision.models import efficientnet_b0
+import tensorflow as tf
+import numpy as np
 from PIL import Image
 
-MODEL_PATH = "src/cnn/models/potato_disease_cnn.pth"
+CLASS_NAMES = [
+    'Black Scurf',
+    'Blackleg',
+    'Common Scab',
+    'Dry Rot',
+    'Pink Rot',
+    'Potato___Early_blight',
+    'Potato___Late_blight',
+    'Potato___healthy'
+]
 
-class CNNDiseaseClassifier:
+
+class PotatoCNNClassifier:
 
     def __init__(self):
 
-        self.device = "cuda" if torch.cuda.is_available() else "cpu"
-
-        checkpoint = torch.load(
-            MODEL_PATH,
-            map_location=self.device
+        self.model = tf.keras.models.load_model(
+            "src/cnn/models/potato_efficientnet.keras"
         )
 
-        self.classes = checkpoint["classes"]
+    def preprocess_image(self, image):
 
-        self.model = efficientnet_b0(weights=None)
-
-        self.model.classifier[1] = torch.nn.Linear(
-            self.model.classifier[1].in_features,
-            len(self.classes)
-        )
-
-        self.model.load_state_dict(
-            checkpoint["model_state_dict"]
-        )
-
-        self.model = self.model.to(self.device)
-        self.model.eval()
-
-        self.transform = transforms.Compose([
-            transforms.Resize((224, 224)),
-            transforms.ToTensor(),
-        ])
-
-    def predict(self, image: Image.Image):
+        if not isinstance(image, Image.Image):
+            image = Image.fromarray(image)
 
         image = image.convert("RGB")
+        image = image.resize((224, 224))
 
-        tensor = self.transform(image)
-        tensor = tensor.unsqueeze(0).to(self.device)
+        img_array = np.array(image)
 
-        with torch.no_grad():
+        img_array = tf.keras.applications.efficientnet.preprocess_input(
+            img_array
+        )
 
-            outputs = self.model(tensor)
+        img_array = np.expand_dims(img_array, axis=0)
 
-            probs = F.softmax(outputs, dim=1)
+        return img_array
 
-            confidence, pred_idx = torch.max(probs, 1)
+    def predict(self, image):
 
-        prediction = self.classes[pred_idx.item()]
+        processed = self.preprocess_image(image)
+
+        predictions = self.model.predict(processed, verbose=0)[0]
+
+        predicted_idx = np.argmax(predictions)
+
+        confidence = float(predictions[predicted_idx]) * 100
+
+        prediction = CLASS_NAMES[predicted_idx]
 
         return {
             "prediction": prediction,
-            "confidence": round(confidence.item() * 100, 2)
+            "confidence": round(confidence, 2),
+            "all_scores": {
+                CLASS_NAMES[i]: round(float(score) * 100, 2)
+                for i, score in enumerate(predictions)
+            }
         }

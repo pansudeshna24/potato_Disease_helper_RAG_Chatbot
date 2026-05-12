@@ -1,140 +1,347 @@
+# src/cnn/train_cnn.py
+
 import os
-import torch
-import torch.nn as nn
-from torch.utils.data import DataLoader
-from torchvision import datasets, transforms
-from torchvision.models import efficientnet_b0
-from torch.optim import Adam
-from tqdm import tqdm
+import numpy as np
+import tensorflow as tf
+from sklearn.metrics import classification_report
+from sklearn.utils.class_weight import compute_class_weight
 
-# ============================================
+# =====================================================
+
 # CONFIG
-# ============================================
 
-DATASET_PATH = "data/image_reference_index"
-MODEL_SAVE_PATH = "src/cnn/models/potato_disease_cnn.pth"
+# =====================================================
 
-BATCH_SIZE = 16
-EPOCHS = 10
-LEARNING_RATE = 1e-4
-IMAGE_SIZE = 224
+DATA_PATH = "data/image_reference_index"
 
-DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+MODEL_SAVE_PATH = (
+"src/cnn/models/potato_efficientnet.keras"
+)
 
-# ============================================
-# TRANSFORMS
-# ============================================
+IMG_SIZE = (224, 224)
 
-train_transform = transforms.Compose([
-    transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),
-    transforms.RandomHorizontalFlip(),
-    transforms.RandomRotation(10),
-    transforms.ColorJitter(brightness=0.2, contrast=0.2),
-    transforms.ToTensor(),
+BATCH_SIZE = 32
+
+SEED = 42
+
+AUTOTUNE = tf.data.AUTOTUNE
+
+# =====================================================
+
+# LOAD DATASET
+
+# =====================================================
+
+train_ds = tf.keras.utils.image_dataset_from_directory(
+DATA_PATH,
+validation_split=0.2,
+subset="training",
+seed=SEED,
+image_size=IMG_SIZE,
+batch_size=BATCH_SIZE
+)
+
+val_ds = tf.keras.utils.image_dataset_from_directory(
+DATA_PATH,
+validation_split=0.2,
+subset="validation",
+seed=SEED,
+image_size=IMG_SIZE,
+batch_size=BATCH_SIZE
+)
+
+class_names = train_ds.class_names
+
+NUM_CLASSES = len(class_names)
+
+print("\nClasses:")
+print(class_names)
+
+# =====================================================
+
+# CLASS WEIGHTS
+
+# =====================================================
+
+y_train = np.concatenate(
+[y for _, y in train_ds],
+axis=0
+)
+
+class_weights = compute_class_weight(
+class_weight="balanced",
+classes=np.unique(y_train),
+y=y_train
+)
+
+class_weights = dict(
+enumerate(class_weights)
+)
+
+print("\nClass Weights:")
+print(class_weights)
+
+# =====================================================
+
+# PREPROCESSING
+
+# =====================================================
+
+def preprocess(image, label):
+
+```
+image = (
+    tf.keras.applications.efficientnet
+    .preprocess_input(image)
+)
+
+return image, label
+```
+
+train_ds = (
+train_ds
+.map(preprocess, num_parallel_calls=AUTOTUNE)
+.cache()
+.shuffle(1000)
+.prefetch(AUTOTUNE)
+)
+
+val_ds = (
+val_ds
+.map(preprocess, num_parallel_calls=AUTOTUNE)
+.cache()
+.prefetch(AUTOTUNE)
+)
+
+# =====================================================
+
+# DATA AUGMENTATION
+
+# =====================================================
+
+data_augmentation = tf.keras.Sequential([
+
+```
+tf.keras.layers.RandomFlip("horizontal"),
+
+tf.keras.layers.RandomRotation(0.1),
+
+tf.keras.layers.RandomZoom(0.1),
+
+tf.keras.layers.RandomContrast(0.1),
+```
+
 ])
 
-# ============================================
-# DATASET
-# ============================================
+# =====================================================
 
-train_dataset = datasets.ImageFolder(
-    DATASET_PATH,
-    transform=train_transform
+# BASE MODEL
+
+# =====================================================
+
+base_model = (
+tf.keras.applications.EfficientNetB0(
+include_top=False,
+weights="imagenet",
+input_shape=(224, 224, 3)
+)
 )
 
-train_loader = DataLoader(
-    train_dataset,
-    batch_size=BATCH_SIZE,
-    shuffle=True
+base_model.trainable = False
+
+# =====================================================
+
+# BUILD MODEL
+
+# =====================================================
+
+inputs = tf.keras.Input(
+shape=(224, 224, 3)
 )
 
-# ============================================
-# MODEL
-# ============================================
+x = data_augmentation(inputs)
 
-model = efficientnet_b0(weights="DEFAULT")
-
-num_classes = len(train_dataset.classes)
-
-model.classifier[1] = nn.Linear(
-    model.classifier[1].in_features,
-    num_classes
+x = base_model(
+x,
+training=False
 )
 
-model = model.to(DEVICE)
+x = tf.keras.layers.GlobalAveragePooling2D()(x)
 
-# ============================================
-# LOSS + OPTIMIZER
-# ============================================
+x = tf.keras.layers.Dense(
+256,
+activation="relu"
+)(x)
 
-criterion = nn.CrossEntropyLoss()
-optimizer = Adam(model.parameters(), lr=LEARNING_RATE)
+x = tf.keras.layers.Dropout(0.5)(x)
 
-# ============================================
-# TRAIN LOOP
-# ============================================
+outputs = tf.keras.layers.Dense(
+NUM_CLASSES,
+activation="softmax"
+)(x)
 
-print("\nStarting EfficientNet Training...")
-print(f"Classes: {train_dataset.classes}")
-print(f"Device: {DEVICE}\n")
+model = tf.keras.Model(
+inputs,
+outputs
+)
 
-for epoch in range(EPOCHS):
+# =====================================================
 
-    model.train()
+# COMPILE
 
-    running_loss = 0.0
-    correct = 0
-    total = 0
+# =====================================================
 
-    loop = tqdm(train_loader)
+model.compile(
 
-    for images, labels in loop:
+```
+optimizer=tf.keras.optimizers.Adam(
+    1e-3
+),
 
-        images = images.to(DEVICE)
-        labels = labels.to(DEVICE)
+loss="sparse_categorical_crossentropy",
 
-        optimizer.zero_grad()
+metrics=["accuracy"]
+```
 
-        outputs = model(images)
+)
 
-        loss = criterion(outputs, labels)
+model.summary()
 
-        loss.backward()
+# =====================================================
 
-        optimizer.step()
+# CALLBACKS
 
-        running_loss += loss.item()
+# =====================================================
 
-        _, predicted = torch.max(outputs, 1)
+callbacks = [
 
-        total += labels.size(0)
-        correct += (predicted == labels).sum().item()
+```
+tf.keras.callbacks.EarlyStopping(
+    monitor="val_loss",
+    patience=5,
+    restore_best_weights=True
+),
 
-        accuracy = 100 * correct / total
+tf.keras.callbacks.ReduceLROnPlateau(
+    monitor="val_loss",
+    factor=0.3,
+    patience=3,
+    verbose=1
+)
+```
 
-        loop.set_description(f"Epoch [{epoch+1}/{EPOCHS}]")
-        loop.set_postfix(loss=loss.item(), acc=accuracy)
+]
 
-    epoch_loss = running_loss / len(train_loader)
-    epoch_acc = 100 * correct / total
+# =====================================================
 
-    print(
-        f"Epoch {epoch+1}: "
-        f"Loss={epoch_loss:.4f}, "
-        f"Accuracy={epoch_acc:.2f}%"
-    )
+# TRAIN FEATURE EXTRACTION
 
-# ============================================
+# =====================================================
+
+print("\nStarting Training...\n")
+
+model.fit(
+
+```
+train_ds,
+
+validation_data=val_ds,
+
+epochs=20,
+
+class_weight=class_weights,
+
+callbacks=callbacks
+```
+
+)
+
+# =====================================================
+
+# FINE TUNING
+
+# =====================================================
+
+print("\nStarting Fine Tuning...\n")
+
+base_model.trainable = True
+
+for layer in base_model.layers[:-20]:
+layer.trainable = False
+
+model.compile(
+
+```
+optimizer=tf.keras.optimizers.Adam(
+    1e-4
+),
+
+loss="sparse_categorical_crossentropy",
+
+metrics=["accuracy"]
+```
+
+)
+
+model.fit(
+
+```
+train_ds,
+
+validation_data=val_ds,
+
+epochs=10,
+
+class_weight=class_weights,
+
+callbacks=callbacks
+```
+
+)
+
+# =====================================================
+
+# EVALUATION
+
+# =====================================================
+
+y_true = np.concatenate(
+[y for _, y in val_ds],
+axis=0
+)
+
+y_pred = np.argmax(
+model.predict(val_ds),
+axis=1
+)
+
+print("\nClassification Report:\n")
+
+print(
+classification_report(
+y_true,
+y_pred,
+target_names=class_names,
+zero_division=0
+)
+)
+
+# =====================================================
+
 # SAVE MODEL
-# ============================================
 
-os.makedirs("src/cnn/models", exist_ok=True)
+# =====================================================
 
-checkpoint = {
-    "model_state_dict": model.state_dict(),
-    "classes": train_dataset.classes
-}
+os.makedirs(
+"src/cnn/models",
+exist_ok=True
+)
 
-torch.save(checkpoint, MODEL_SAVE_PATH)
+model.save(MODEL_SAVE_PATH)
 
-print(f"\nModel saved to: {MODEL_SAVE_PATH}")
+print(
+f"\nModel saved to: "
+f"{MODEL_SAVE_PATH}"
+)
+
+print("\nTraining completed successfully.")

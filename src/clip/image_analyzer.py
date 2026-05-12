@@ -10,7 +10,7 @@ from PIL import Image
 import time
 
 from src.core.logging_utils import setup_logger, log_timing
-from src.cnn.cnn_classifier import CNNDiseaseClassifier
+from src.cnn.cnn_classifier import PotatoCNNClassifier
 
 
 logger = setup_logger('image_analyzer')
@@ -102,6 +102,11 @@ DISPLAY_NAMES = {
 }
 
 
+# =========================================
+
+
+# =========================================
+
 class CLIPDiseaseAnalyzer:
 
     def __init__(self, load_faiss_index=True):
@@ -123,7 +128,7 @@ class CLIPDiseaseAnalyzer:
         # LOAD CNN CLASSIFIER
         # =====================================
 
-        self.cnn_classifier = CNNDiseaseClassifier()
+        self.cnn_classifier = PotatoCNNClassifier()
 
         # =====================================
         # LOAD CLIP MODEL
@@ -160,51 +165,23 @@ class CLIPDiseaseAnalyzer:
         logger.info(
             "CLIPDiseaseAnalyzer initialized successfully"
         )
-
+    
     # =====================================================
-    # SAFE NORMALIZATION
-    # =====================================================
-
-    def _normalize_embedding(self, emb):
-
-        if not isinstance(emb, self.torch.Tensor):
-
-            if hasattr(emb, "pooler_output"):
-                emb = emb.pooler_output
-
-            elif isinstance(emb, tuple):
-                emb = emb[0]
-
-        emb = emb.float()
-
-        if emb.dim() == 1:
-            emb = emb.unsqueeze(0)
-
-        emb = emb / (
-            emb.norm(dim=-1, keepdim=True) + 1e-8
-        )
-
-        return emb
-
-    # =====================================================
-    # ENCODE TEXT PROMPTS
+    # ENCODE DISEASE TEXT PROMPTS
     # =====================================================
 
     def _encode_disease_prompts(self):
 
-        logger.info("Encoding disease text prompts...")
+        all_embeddings = []
 
-        embeddings = []
+        for disease in self.disease_names:
 
-        for disease_name in self.disease_names:
-
-            prompts = DISEASE_TEXT_PROMPTS[disease_name]
+            prompts = DISEASE_TEXT_PROMPTS[disease]
 
             inputs = self.processor(
                 text=prompts,
                 return_tensors="pt",
-                padding=True,
-                truncation=True
+                padding=True
             )
 
             inputs = {
@@ -215,7 +192,9 @@ class CLIPDiseaseAnalyzer:
             with self.torch.no_grad():
 
                 text_features = (
-                    self.model.get_text_features(**inputs)
+                    self.model.get_text_features(
+                        **inputs
+                    )
                 )
 
                 text_features = (
@@ -224,26 +203,51 @@ class CLIPDiseaseAnalyzer:
                     )
                 )
 
-            avg_emb = text_features.mean(dim=0)
-
-            avg_emb = avg_emb.squeeze()
-
-            avg_emb = avg_emb.cpu().numpy()
-
-            avg_emb = avg_emb.astype(np.float32)
-
-            avg_emb = avg_emb / (
-                np.linalg.norm(avg_emb) + 1e-8
+            avg_embedding = text_features.mean(
+                dim=0
             )
 
-            embeddings.append(avg_emb)
+            avg_embedding = avg_embedding / (
+                avg_embedding.norm() + 1e-8
+            )
 
-        embeddings = [
-            e.reshape(-1)
-            for e in embeddings
-        ]
+            all_embeddings.append(
+                avg_embedding.cpu().numpy()
+            )
 
-        return np.stack(embeddings).astype(np.float32)
+        return np.array(
+            all_embeddings,
+            dtype=np.float32
+        )
+   
+    # =====================================================
+    # NORMALIZE EMBEDDINGS
+    # =====================================================
+
+    def _normalize_embedding(self, embedding):
+
+        import torch
+
+        # Handle transformers output objects
+
+        if hasattr(embedding, "pooler_output"):
+            embedding = embedding.pooler_output
+
+        elif hasattr(embedding, "last_hidden_state"):
+            embedding = embedding.last_hidden_state.mean(dim=1)
+
+        # Normalize tensor
+
+        embedding = embedding / (
+            torch.norm(
+                embedding,
+                dim=-1,
+                keepdim=True
+            ) + 1e-8
+        )
+
+        return embedding
+    
 
     # =====================================================
     # ENCODE IMAGE
@@ -440,15 +444,17 @@ class CLIPDiseaseAnalyzer:
     # MAIN ANALYSIS
     # =====================================================
 
+  
     def analyze_image(self, image):
 
-    # =====================================
-    # CNN PREDICTION
-    # =====================================
+        # =====================================
+        # CNN PREDICTION
+        # =====================================
 
         cnn_result = self.cnn_classifier.predict(image)
 
         cnn_prediction = cnn_result["prediction"]
+
         cnn_confidence = cnn_result["confidence"]
 
         # =====================================
@@ -477,7 +483,8 @@ class CLIPDiseaseAnalyzer:
 
         final_confidence = cnn_confidence
 
-        # boost confidence if both agree
+        # Boost if both agree
+
         if clip_prediction.lower() in cnn_prediction.lower():
 
             final_confidence = min(
@@ -485,10 +492,17 @@ class CLIPDiseaseAnalyzer:
                 cnn_confidence + 10
             )
 
-        # uncertainty handling
+        # =====================================
+        # LOW CONFIDENCE HANDLING
+        # =====================================
+
         if final_confidence < 45:
 
             final_prediction = "Uncertain"
+
+        # =====================================
+        # RAG QUERY
+        # =====================================
 
         rag_query = (
             f"Potato plant appears affected by "
@@ -497,13 +511,23 @@ class CLIPDiseaseAnalyzer:
         )
 
         return {
+
             "prediction": final_prediction,
+
             "display_name": final_prediction,
+
             "confidence": final_confidence,
+
             "cnn_prediction": cnn_prediction,
+
             "cnn_confidence": cnn_confidence,
+
             "clip_prediction": clip_prediction,
+
             "clip_confidence": clip_confidence,
+
             "top_candidates": clip_results,
+
             "rag_query": rag_query
         }
+
